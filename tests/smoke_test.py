@@ -300,6 +300,52 @@ def test_stop_hook() -> None:
         Path(os.path.join(tmpdir, f)).unlink(missing_ok=True)
 
 
+def test_audit_runner() -> None:
+    log("\n6. AUDIT RUNNER")
+    try:
+        import yaml  # noqa: F401
+    except ImportError:
+        log("  [SKIP] PyYAML not installed — cannot test audit runner")
+        return
+
+    test_dir = tempfile.mkdtemp(prefix="smoke-audit-")
+    checks_yaml = os.path.join(test_dir, "audit-checks.yaml")
+    Path(checks_yaml).write_text(
+        "checks:\n"
+        "  - name: always-pass\n"
+        "    command: 'echo ok'\n"
+        "    validator: 'contains:ok'\n"
+        "    critical: true\n"
+        "  - name: always-fail-optional\n"
+        "    command: 'echo bad'\n"
+        "    validator: 'contains:good'\n"
+        "    optional: true\n"
+        "    critical: false\n"
+    )
+
+    try:
+        result = subprocess.run(
+            [sys.executable, os.path.join(HOOKS_DIR, "audit.py"),
+             "--checks", checks_yaml],
+            capture_output=True, text=True, timeout=30, cwd=test_dir,
+        )
+        check("Audit runner exits 0 (no critical failures)", result.returncode == 0)
+        check("Audit shows OK for passing check", "OK" in result.stdout)
+        check("Audit shows WARN for optional failure", "WARN" in result.stdout)
+
+        # Test importable run_audit
+        sys.path.insert(0, HOOKS_DIR)
+        from audit import run_audit
+        summary = run_audit(checks_path=checks_yaml)
+        check("run_audit returns dict with results", len(summary.get("results", [])) == 2)
+        check("run_audit all_critical_pass is True", summary.get("all_critical_pass") is True)
+        check("run_audit counts correct", summary["passed"] == 1 and summary["warned"] == 1)
+        sys.path.pop(0)
+    finally:
+        import shutil
+        shutil.rmtree(test_dir, ignore_errors=True)
+
+
 def main() -> None:
     log("SMOKE TEST — Agentic AI Tiered Startup Architecture")
     log("=" * 50)
@@ -309,6 +355,7 @@ def main() -> None:
     test_gate_check()
     test_prompt_submit()
     test_stop_hook()
+    test_audit_runner()
 
     log(f"\n{'=' * 50}")
     log(f"RESULT: {PASS} passed, {FAIL} failed")

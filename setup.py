@@ -264,6 +264,14 @@ def generate(platform: dict, store: dict, level: int, project: dict) -> None:
     if level >= 4:
         copy_hook("on_edit.py", hooks_dir)
         copy_hook("on_stop.py", hooks_dir)
+        copy_hook("audit.py", hooks_dir)
+
+        checks_dir = project_dir / "checks"
+        checks_dir.mkdir(parents=True, exist_ok=True)
+        src_checks = REPO_DIR / "checks" / "audit-checks.yaml"
+        if src_checks.exists():
+            shutil.copy2(src_checks, checks_dir / "audit-checks.yaml")
+            print(f"  [OK] Audit checks -> {checks_dir}/audit-checks.yaml")
 
     # Copy anti-hallucination rules
     if project["include_ah_rules"]:
@@ -396,7 +404,12 @@ def _generate_yaml_config(level: int, project: dict) -> dict:
     }
 
     if level >= 4:
-        config["stop"] = {"require_clean_repos": True, "require_self_verification": True, "max_retries": 8}
+        config["stop"] = {
+            "require_clean_repos": True,
+            "require_self_verification": True,
+            "require_audit_pass": True,
+            "max_retries": 8,
+        }
         config["rule_zero"] = {
             "consolidated_files": {
                 "MEMORY.md": ["memory", "pointer", "reference", "project state"],

@@ -110,6 +110,7 @@ nav:
     - Patterns:
       - Self-Healing Loop: reference/self-healing-loop.md
       - Self-Verification: reference/self-verification.md
+      - Audit Runner: reference/audit-runner.md
       - Session Continuity: reference/session-continuity.md
     - Guides:
       - Data Store Mapping: reference/data-store-mapping.md

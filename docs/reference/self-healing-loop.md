@@ -141,3 +141,12 @@ Apply the self-healing check:
 - After any file edit → "Is this scattered information that belongs in a consolidated file?"
 
 The last question is RULE ZERO — see the [Rule Zero](rule-zero.md) pattern.
+
+### Standalone Audit Runner
+
+The `audit.py` script provides on-demand execution of the check side of
+the self-healing loop. While startup checks run automatically at session
+start, the audit runner lets you verify infrastructure state at any point
+during a session. It uses the same validator framework, so checks written
+for startup work identically when run standalone. See the
+[Audit Runner](audit-runner.md) reference for usage and configuration.

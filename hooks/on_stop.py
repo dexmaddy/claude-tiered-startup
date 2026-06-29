@@ -106,6 +106,25 @@ def main() -> None:
         if not passed:
             failures.append(f"Transcript missing: {detail}")
 
+    # Audit checks: run full audit if configured
+    if stop_config.get("require_audit_pass"):
+        try:
+            sys.path.insert(0, os.path.dirname(__file__))
+            from audit import run_audit
+            checks_path = stop_config.get("audit_checks_path")
+            summary = run_audit(checks_path=checks_path, critical_only=True)
+            if not summary["all_critical_pass"]:
+                failed_names = [r["name"] for r in summary["results"]
+                                if r["status"] == "FAIL" and r.get("critical")]
+                failures.append(
+                    f"Audit: {summary['critical_failed']} critical check(s) failed: "
+                    + ", ".join(failed_names)
+                )
+        except ImportError:
+            pass
+        except Exception as e:
+            failures.append(f"Audit runner error: {e}")
+
     if failures:
         increment_retry_count()
         print("STOP BLOCKED — fix before exiting:")

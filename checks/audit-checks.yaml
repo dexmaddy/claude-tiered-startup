@@ -1,0 +1,88 @@
+# Audit Check Library
+# Generic checks for AI agent session health.
+# Copy to your project and customize.
+#
+# Run standalone:
+#   python3 hooks/audit.py --checks checks/audit-checks.yaml --verbose
+#
+# Fields:
+#   name        — unique identifier
+#   description — human-readable explanation
+#   command     — shell command (stdout is validated)
+#   validator   — empty_output | not_empty | contains:X | equals:X | regex:X
+#   phase       — pre-exit | integrity | quality (for categorization)
+#   critical    — true = blocks exit when stop.require_audit_pass is on
+#   optional    — true = failure reported as WARN, not FAIL
+
+checks:
+  - name: git-clean
+    description: "No uncommitted changes in working tree"
+    command: "git status --porcelain"
+    validator: empty_output
+    phase: pre-exit
+    critical: true
+
+  - name: git-pushed
+    description: "No unpushed commits on current branch"
+    command: "git log @{u}..HEAD --oneline 2>/dev/null | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: pre-exit
+    critical: true
+
+  - name: no-todo-fixme
+    description: "No TODO/FIXME markers in tracked files"
+    command: "git grep -c 'TODO\\|FIXME' -- '*.py' '*.js' '*.ts' 2>/dev/null | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+    optional: true
+
+  - name: config-valid
+    description: "Startup config parses without error"
+    command: "python3 -c \"import yaml; yaml.safe_load(open('startup-config.yaml'))\" 2>&1"
+    validator: empty_output
+    phase: integrity
+    critical: true
+
+  - name: hooks-syntax-valid
+    description: "All hook scripts have valid Python syntax"
+    command: "python3 -c \"import ast, glob; [ast.parse(open(f).read()) for f in glob.glob('.claude/hooks/*.py') + glob.glob('.agent/hooks/*.py') + glob.glob('hooks/*.py')]\" 2>&1"
+    validator: empty_output
+    phase: integrity
+    critical: true
+
+  - name: no-hardcoded-paths
+    description: "No absolute paths leaked into startup config"
+    command: "grep -cE '^\\s+source:\\s+/' startup-config.yaml 2>/dev/null || echo 0"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+
+  - name: rules-not-empty
+    description: "No empty rule files in rules/ directory"
+    command: "find rules/ -name '*.md' -empty 2>/dev/null | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: integrity
+    critical: true
+
+  - name: tier1-files-exist
+    description: "Files referenced in tier1 config actually exist on disk"
+    command: "python3 -c \"import yaml; c=yaml.safe_load(open('startup-config.yaml')); [print(t['source']) for t in c.get('tiers',{}).get('tier1',[]) if t.get('source') and not __import__('os').path.exists(t['source']) and t.get('type') not in ('generated','checks')]\" 2>&1"
+    validator: empty_output
+    phase: integrity
+    critical: true
+
+  - name: cross-check-clean
+    description: "Cross-check drift detection finds no drift"
+    command: "python3 hooks/cross_check.py 2>/dev/null | grep -c DRIFT || echo 0"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+
+  - name: smoke-test-passes
+    description: "Full smoke test suite passes"
+    command: "python3 tests/smoke_test.py 2>&1 | tail -1 | grep -c 'All checks passed' || echo 0"
+    validator: "equals:1"
+    phase: quality
+    critical: false
+    optional: true

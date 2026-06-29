@@ -53,6 +53,14 @@ your tiered startup system.
     Structurally enforced: `on_stop.py` blocks exit if infra files were
     edited after the last check. "I did it" is not "it's done."
 
+-   :material-clipboard-check:{ .lg .middle } **[Audit Runner](audit-runner.md)**
+
+    ---
+
+    On-demand infrastructure and quality checks. Run standalone or
+    integrated with the stop hook. Uses the same validator framework
+    as startup checks.
+
 -   :material-swap-horizontal:{ .lg .middle } **[Session Continuity](session-continuity.md)**
 
     ---

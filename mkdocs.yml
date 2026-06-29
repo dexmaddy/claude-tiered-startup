@@ -23,6 +23,7 @@ theme:
     - navigation.tracking
     - navigation.top
     - navigation.path
+    - navigation.indexes
     - toc.integrate
     - search.suggest
     - search.highlight
@@ -69,7 +70,7 @@ extra_css:
 
 nav:
   - Overview:
-    - Welcome: overview/index.md
+    - overview/index.md
     - The Problem: overview/the-problem.md
     - Architecture: overview/architecture.md
     - Implementation Levels: overview/levels.md

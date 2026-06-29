@@ -1,30 +1,61 @@
-# Agentic AI Tiered Startup Architecture
+# Overview
 
-A progressive, hook-based system that ensures AI agent sessions start with
-the right context loaded, enforced structurally — not by hoping the agent reads
-your instructions carefully.
+Understand the problem this architecture solves, how it works, and the
+design decisions behind it.
 
-## What This Solves
+---
 
-| Problem | Symptom | Solution |
-|---------|---------|----------|
-| **Context waste** | Loading 3000 lines of rules for a typo fix | Tiered loading — essential rules always, specialized on-demand |
-| **Rule drift** | Instructions say "58 rules" but there are 62 | Drift detection — automatic expected vs actual checks |
-| **Startup chaos** | Agent skips rule files, starts working immediately | Structural gates — tools blocked until rules are loaded |
+## Concepts
 
-## Quick Setup
+<div class="grid cards" markdown>
 
-```bash
-git clone https://github.com/dexmaddy/agentic-ai-tiered-startup.git
-cd agentic-ai-tiered-startup
-python3 setup.py
-```
+-   :material-alert-circle:{ .lg .middle } **[The Problem](the-problem.md)**
 
-The interactive wizard configures everything for your agent platform and project.
+    ---
 
-## Explore
+    Why unmanaged AI agent sessions fail: context waste, rule drift, and
+    startup chaos. The case for structural enforcement over written instructions.
 
-- **New here?** Start with [The Problem](overview/the-problem.md) to understand why this exists
-- **Want to build?** Jump to the [Course](course/README.md) — 8 modules, ~2.5 hours
-- **Just want code?** Run `python3 setup.py` and follow the prompts
-- **Visual learner?** Download the [slide deck](slides.md)
+-   :material-sitemap:{ .lg .middle } **[Architecture](architecture.md)**
+
+    ---
+
+    The 4-hook engine (SessionStart, PreToolUse, UserPromptSubmit, Stop),
+    manifest/sentinel state management, and how tiers work together.
+
+</div>
+
+## Implementation
+
+<div class="grid cards" markdown>
+
+-   :material-stairs:{ .lg .middle } **[Implementation Levels](levels.md)**
+
+    ---
+
+    Four progressive levels from voluntary compliance (Level 1) to full
+    structural enforcement with stop-hook cleanup (Level 4). Start simple,
+    add enforcement as needed.
+
+-   :material-database-cog:{ .lg .middle } **[Data Store & Platforms](data-and-platforms.md)**
+
+    ---
+
+    YAML files vs SQLite vs PostgreSQL — when to use each. Platform
+    adaptation guides for Claude Code, Cursor, Windsurf, Aider, and custom agents.
+
+</div>
+
+## Insights
+
+<div class="grid cards" markdown>
+
+-   :material-lightbulb:{ .lg .middle } **[Lessons Learned](lessons-learned.md)**
+
+    ---
+
+    Eight hard-won insights from building this system: documenting is not
+    doing, exit codes lie, gate don't nag, more reasoning = worse faithfulness,
+    and more.
+
+</div>

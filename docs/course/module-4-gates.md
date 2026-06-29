@@ -246,6 +246,66 @@ The Prompt Gate reads the sentinel independently from the Tool Gate.
 
 ---
 
+## Context Reset Detection (`/clear` Gate)
+
+When a user runs `/clear` (or an equivalent context-reset command), the
+conversation is wiped but the session process continues. This creates a
+dangerous mismatch:
+
+- **Sentinel** says startup is complete (it persists in `/tmp`)
+- **Agent context** is empty (all loaded rules, facts, and learnings are gone)
+- **Tool Gate** allows everything (sentinel says "complete")
+- **Result:** Agent operates without any loaded rules — exactly the state
+  the tiered startup architecture exists to prevent
+
+### How It Works
+
+The Prompt Gate (`on_prompt_submit.py`) detects the mismatch using two signals:
+
+1. **Prompt counter vs transcript length** (Claude Code): The hook tracks
+   a prompt counter in `/tmp`. After `/clear`, the counter is high (e.g., 50)
+   but the transcript from stdin has 0-1 messages. This mismatch means
+   the context was reset mid-session.
+
+2. **Tool-agnostic fallback**: For non-Claude tools, extend `detect_context_reset()`
+   with your tool's context-awareness API (e.g., conversation ID change,
+   context length query, session state endpoint).
+
+When detected, the hook:
+
+1. Deletes the sentinel, prompt counter, and infra-fail flag
+2. Re-runs the SessionStart hook to regenerate manifest and tier files
+3. Injects a "CONTEXT RESET DETECTED" message telling the agent to re-read tier1
+
+The existing Tool Gate then blocks non-Read tools until all tier1 files
+are read again — the same flow as a fresh session.
+
+### Adapting for Other Tools
+
+The detection is in a single function: `detect_context_reset()` in
+`hooks/on_prompt_submit.py`. The Claude Code implementation checks
+`hook_input["transcript"]`. For other tools:
+
+```python
+# Example: tool that exposes conversation ID
+def detect_context_reset(hook_input):
+    sentinel = read_json(SENTINEL)
+    if not sentinel or sentinel.get("stage") != "complete":
+        return False
+
+    current_conv_id = hook_input.get("conversation_id")
+    saved_conv_id = sentinel.get("conversation_id")
+    if current_conv_id and saved_conv_id and current_conv_id != saved_conv_id:
+        return True
+
+    return False
+```
+
+The rest of the flow (sentinel deletion, startup re-trigger, tool gate
+blocking) is tool-agnostic and works unchanged.
+
+---
+
 ## Checkpoint
 
 Before moving on, verify:
@@ -254,6 +314,7 @@ Before moving on, verify:
 - [ ] If an infra check FAILs → "ACTION REQUIRED" message appears on first prompt
 - [ ] At 40+ prompts, a health warning appears
 - [ ] The sentinel shows `stage: "complete"` after all files are read
+- [ ] After `/clear`, the agent is forced to re-read tier1 before proceeding
 
 ---
 

@@ -1,30 +1,75 @@
-/* Navigation sidebar styling */
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+
+/* Category headers (Getting Started, Course, Reference) */
 .md-nav__item--nested > .md-nav__link {
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--md-default-fg-color--light);
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Category header hover */
+.md-nav__item--nested > .md-nav__link:hover {
+  background-color: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
+}
+
+/* Expand/collapse arrow — make it more visible */
+.md-nav__icon {
+  transition: transform 0.25s ease;
 }
 
 /* Active page highlight */
 .md-nav__item--active > .md-nav__link {
   color: var(--md-accent-fg-color);
   font-weight: 700;
+  border-left: 3px solid var(--md-accent-fg-color);
+  padding-left: 0.5rem;
 }
 
-/* Smoother expand/collapse animation */
-.md-nav__toggle ~ .md-nav {
-  transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-/* Section dividers in sidebar */
+/* Section dividers between categories */
 .md-nav--primary > .md-nav__list > .md-nav__item {
   border-bottom: 1px solid var(--md-default-fg-color--lightest);
-  padding-bottom: 0.4rem;
-  margin-bottom: 0.4rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Module numbers styling in sidebar */
-.md-nav__link[href*="module-"] {
-  font-size: 0.82rem;
+.md-nav--primary > .md-nav__list > .md-nav__item:last-child {
+  border-bottom: none;
 }
+
+/* Nested items (modules, reference pages) indent */
+.md-nav--primary .md-nav .md-nav__link {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.6rem 0.3rem 1.2rem;
+  border-radius: 0.2rem;
+  transition: background-color 0.15s ease;
+}
+
+/* Nested item hover */
+.md-nav--primary .md-nav .md-nav__link:hover {
+  background-color: var(--md-code-bg-color);
+}
+
+/* Collapsed section indicator — subtle background */
+.md-nav__item--nested:not(.md-nav__item--active) > .md-nav__link::after {
+  opacity: 0.5;
+}
+
+/* Expanded section indicator — full opacity */
+.md-nav__item--nested.md-nav__item--active > .md-nav__link::after {
+  opacity: 1;
+}
+
+/* ============================================
+   CONTENT AREA
+   ============================================ */
 
 /* Better content width */
 .md-content {
@@ -42,13 +87,22 @@
   font-size: 0.82rem;
 }
 
-/* Table improvements */
+/* ============================================
+   TABLES
+   ============================================ */
+
 .md-typeset table:not([class]) {
   font-size: 0.82rem;
   border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 .md-typeset table:not([class]) th {
   background-color: var(--md-accent-fg-color--transparent);
   font-weight: 700;
+}
+
+.md-typeset table:not([class]) tr:hover td {
+  background-color: var(--md-code-bg-color);
 }

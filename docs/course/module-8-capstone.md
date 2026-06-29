@@ -281,4 +281,4 @@ reliable.
 
 ---
 
-**Course complete.** Return to the [Course Index](README.md) for reference.
+**Course complete.** Return to the [Course Index](index.md) for reference.

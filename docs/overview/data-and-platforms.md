@@ -70,5 +70,5 @@ Claude Code's hooks API, but the patterns adapt to any platform with lifecycle e
 | **Setup** | Copy config, write markdown files | `python3 hooks/on_session_start_db.py --init-db project.db` |
 
 Start with Method A. Graduate to Method B when you hit the
-[pain signals](docs/session-continuity.md#why-sqlite-over-json) described
+[pain signals](../reference/session-continuity.md) described
 in the data source guide.

@@ -69,6 +69,7 @@ extra_css:
   - stylesheets/extra.css
 
 nav:
+  - What You'll Achieve: index.md
   - Overview:
     - overview/index.md
     - The Problem: overview/the-problem.md
@@ -76,6 +77,10 @@ nav:
     - Implementation Levels: overview/levels.md
     - Data Store & Platforms: overview/data-and-platforms.md
     - Lessons Learned: overview/lessons-learned.md
+    - Slide Deck: slides.md
+  - Getting Started:
+    - Setup Wizard: reference/setup-wizard.md
+    - Bootstrapping Guide: reference/bootstrapping-guide.md
   - Course:
     - course/index.md
     - Foundations:
@@ -88,7 +93,7 @@ nav:
     - Deep Dives:
       - "Module 6: Anti-Hallucination": course/module-6-anti-hallucination.md
       - "Module 7: Feedback Loop": course/module-7-feedback-loop.md
-    - "Module 8: Capstone": course/module-8-capstone.md
+      - "Module 8: Capstone": course/module-8-capstone.md
   - Reference:
     - reference/index.md
     - Rules & Frameworks:
@@ -98,8 +103,4 @@ nav:
     - Patterns:
       - Self-Healing Loop: reference/self-healing-loop.md
       - Self-Verification: reference/self-verification.md
-    - Guides:
-      - Setup Wizard: reference/setup-wizard.md
-      - Bootstrapping Guide: reference/bootstrapping-guide.md
-      - Session Continuity: reference/session-continuity.md
-  - Slides: slides.md
+    - Session Continuity: reference/session-continuity.md

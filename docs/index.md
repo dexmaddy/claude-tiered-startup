@@ -53,33 +53,26 @@ your instructions carefully.
     Understand the problem, architecture, implementation levels,
     and lessons learned.
 
--   :material-school:{ .lg .middle } **[Mini Course](course/README.md)**
+-   :material-rocket-launch:{ .lg .middle } **[Getting Started](reference/setup-wizard.md)**
+
+    ---
+
+    Run `python3 setup.py` — the interactive wizard configures
+    everything in under 2 minutes. Or follow the bootstrapping guide.
+
+-   :material-school:{ .lg .middle } **[Mini Course](course/index.md)**
 
     ---
 
     8 modules, ~2.5 hours. Build a complete working system for your
     project step by step.
 
--   :material-rocket-launch:{ .lg .middle } **[Getting Started](reference/setup-wizard.md)**
-
-    ---
-
-    Run `python3 setup.py` — the interactive wizard configures
-    everything in under 2 minutes.
-
--   :material-bookshelf:{ .lg .middle } **[Reference](reference/bootstrapping-guide.md)**
+-   :material-bookshelf:{ .lg .middle } **[Reference](reference/index.md)**
 
     ---
 
     Anti-hallucination rules, design patterns (Rule Zero, Self-Healing
-    Loop, Self-Verification), and guides.
-
--   :material-presentation:{ .lg .middle } **[Slide Deck](slides.md)**
-
-    ---
-
-    10-slide visual companion covering the problem, architecture,
-    and all 4 implementation levels.
+    Loop, Self-Verification), and session continuity.
 
 -   :fontawesome-brands-github:{ .lg .middle } **[Source Code](https://github.com/dexmaddy/agentic-ai-tiered-startup)**
 

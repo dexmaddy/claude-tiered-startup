@@ -1,7 +1,7 @@
 # Reference
 
-Guides, patterns, and frameworks for building and evolving your
-tiered startup system.
+Patterns, frameworks, and reusable components for building and evolving
+your tiered startup system.
 
 ---
 
@@ -51,26 +51,6 @@ tiered startup system.
 
     After completing any task, re-run at least one verification command.
     "I did it" is not the same as "it's done." The 4-point completion check.
-
-</div>
-
-## Guides
-
-<div class="grid cards" markdown>
-
--   :material-rocket-launch:{ .lg .middle } **[Setup Wizard](setup-wizard.md)**
-
-    ---
-
-    Interactive wizard that configures your platform, data store, and
-    enforcement level. Generates all config files and hook scripts.
-
--   :material-book-open:{ .lg .middle } **[Bootstrapping Guide](bootstrapping-guide.md)**
-
-    ---
-
-    Create your first 5 rules in 15 minutes. Starter kits for web apps,
-    data pipelines, and infrastructure projects.
 
 -   :material-swap-horizontal:{ .lg .middle } **[Session Continuity](session-continuity.md)**
 

@@ -84,18 +84,14 @@ A structured, self-paced course for building reliable AI agent sessions.
 
     **Time:** 15 minutes
 
-</div>
-
-## Capstone
-
-<div class="grid cards" markdown>
-
 -   :material-trophy:{ .lg .middle } **[Module 8: Capstone](module-8-capstone.md)**
 
     ---
 
     Wire everything together for your project. Deploy the full system,
     run the smoke test, and verify end-to-end.
+
+    **Time:** 30 minutes
 
     **Time:** 30 minutes
 

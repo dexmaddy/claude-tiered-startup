@@ -34,6 +34,10 @@ By the end of this course, you will:
 
 **Total time: ~2.5 hours**
 
+**Visual companion:** Download the [slide deck (PDF)](../slides/Structural_AI_Agent_Enforcement.pdf)
+or [PowerPoint](../slides/Structural_AI_Agent_Enforcement.pptx) to follow along
+with diagrams for each level.
+
 ## Prerequisites
 
 - An AI coding agent installed (e.g., AI coding agents, Cursor, Windsurf, Aider)

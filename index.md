@@ -376,6 +376,17 @@ Or reference them directly in your LLM prompts when generating summaries.
 
 ---
 
+## Slide Deck
+
+Download the visual companion slides to understand the architecture at a glance:
+
+- **[PDF](slides/Structural_AI_Agent_Enforcement.pdf)** — 10 slides covering the problem, 4-hook engine, tiering strategy, and all 4 levels
+- **[PowerPoint](slides/Structural_AI_Agent_Enforcement.pptx)** — editable version for presentations and workshops
+
+Use these alongside the course or as a standalone overview for your team.
+
+---
+
 ## Getting Started
 
 **New to this?** Take the **[Mini Course](course/README.md)** — 8 modules, ~2.5 hours,
@@ -422,6 +433,9 @@ claude-tiered-startup/
 │   ├── module-6-anti-hallucination.md # 14 research-backed rules
 │   ├── module-7-feedback-loop.md      # Failure → rule → enforcement pipeline
 │   └── module-8-capstone.md           # Wire it all together for your project
+├── slides/
+│   ├── Structural_AI_Agent_Enforcement.pdf   # 10-slide visual companion (PDF)
+│   └── Structural_AI_Agent_Enforcement.pptx  # Editable PowerPoint version
 ├── tests/
 │   └── smoke_test.py                  # Verify full hook chain works (18 checks)
 ├── examples/

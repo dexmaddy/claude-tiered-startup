@@ -160,14 +160,45 @@ def format_report(summary: dict, verbose: bool = False) -> str:
     return "\n".join(lines)
 
 
+def run_audit_merged(
+    paths: list[str | Path],
+    critical_only: bool = False,
+) -> dict:
+    """Run checks from multiple YAML files merged together."""
+    all_checks = []
+    for p in paths:
+        all_checks.extend(load_checks(Path(p)))
+    if critical_only:
+        all_checks = [c for c in all_checks if c.get("critical", True)]
+
+    results = [run_single_check(c) for c in all_checks]
+    passed = sum(1 for r in results if r["status"] == "OK")
+    failed = sum(1 for r in results if r["status"] == "FAIL")
+    warned = sum(1 for r in results if r["status"] == "WARN")
+    critical_failed = sum(1 for r in results if r["status"] == "FAIL" and r["critical"])
+
+    return {
+        "results": results, "passed": passed, "failed": failed,
+        "warned": warned, "critical_failed": critical_failed,
+        "all_critical_pass": critical_failed == 0,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run audit checks")
     parser.add_argument("--checks", help="Path to audit-checks.yaml")
+    parser.add_argument("--merge", action="append", default=[], help="Additional YAML files to merge")
     parser.add_argument("--verbose", action="store_true", help="Show check details")
     parser.add_argument("--critical-only", action="store_true", help="Only run critical checks")
     args = parser.parse_args()
 
-    summary = run_audit(checks_path=args.checks, critical_only=args.critical_only)
+    if args.merge:
+        primary = str(find_checks_file(args.checks))
+        all_paths = [primary] + args.merge
+        summary = run_audit_merged(all_paths, critical_only=args.critical_only)
+    else:
+        summary = run_audit(checks_path=args.checks, critical_only=args.critical_only)
+
     print(format_report(summary, verbose=args.verbose))
     sys.exit(0 if summary["all_critical_pass"] else 1)
 

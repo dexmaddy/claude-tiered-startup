@@ -178,6 +178,29 @@ graph TD
 Max retries prevents the user from being trapped if the check can't
 be satisfied.
 
+### Audit Runner Integration
+
+The stop hook can also run the [Audit Runner](../reference/audit-runner.md)
+before allowing exit. Enable with `require_audit_pass: true` in your config.
+This catches infrastructure drift introduced during the session.
+
+Every audit check was born from a real failure:
+
+```mermaid
+graph LR
+    A["Something<br/>goes wrong"] --> B["Learning<br/>logged"]
+    B --> C["Becomes<br/>a rule"]
+    C --> D["Add audit<br/>check"]
+    D --> E["Wire into<br/>stop hook"]
+
+    style A fill:#d9534f,color:#fff
+    style D fill:#5cb85c,color:#fff
+    style E fill:#9b59b6,color:#fff
+```
+
+See the [full check library](../reference/audit-runner.md#check-library-reference)
+for all 22 checks with "What It Catches / Why It Matters" tables.
+
 ---
 
 ## What You've Built (Full Level 4)

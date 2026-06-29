@@ -222,6 +222,12 @@ Read them after completing the basics above:
 
 ---
 
+## The Full Check Library
+
+The [Audit Runner](../reference/audit-runner.md#check-library-reference) ships
+with 22 checks across 4 categories — every one born from a real failure.
+See the full "What It Catches / Why It Matters" tables in the reference docs.
+
 ## Checkpoint
 
 - [ ] You've written at least one rule from a real failure
@@ -230,6 +236,7 @@ Read them after completing the basics above:
 - [ ] You know when to retire a rule
 - [ ] You've read Rule Zero and understand the routing pattern (enforced by `on_edit.py`)
 - [ ] You've read the Self-Verification 4-point check (enforced by `on_stop.py`)
+- [ ] You've reviewed the [audit check library](../reference/audit-runner.md) and customized for your project
 
 ---
 

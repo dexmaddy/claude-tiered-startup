@@ -273,6 +273,12 @@ def generate(platform: dict, store: dict, level: int, project: dict) -> None:
             shutil.copy2(src_checks, checks_dir / "audit-checks.yaml")
             print(f"  [OK] Audit checks -> {checks_dir}/audit-checks.yaml")
 
+        if store["name"].startswith("SQLite") or store["name"].startswith("PostgreSQL"):
+            src_db_checks = REPO_DIR / "checks" / "audit-checks-db.yaml"
+            if src_db_checks.exists():
+                shutil.copy2(src_db_checks, checks_dir / "audit-checks-db.yaml")
+                print(f"  [OK] DB audit checks -> {checks_dir}/audit-checks-db.yaml")
+
     # Copy anti-hallucination rules
     if project["include_ah_rules"]:
         src = REPO_DIR / "rules" / "anti-hallucination-rules.md"

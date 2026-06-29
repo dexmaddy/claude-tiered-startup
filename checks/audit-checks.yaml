@@ -86,3 +86,67 @@ checks:
     phase: quality
     critical: false
     optional: true
+
+  # --- Additional checks (born from real failures) ---
+
+  - name: no-dead-file-paths
+    description: "No broken file references in config or memory index"
+    command: "python3 -c \"
+import yaml, os
+c = yaml.safe_load(open('startup-config.yaml'))
+broken = []
+for tier in ['tier1', 'tier2']:
+    for t in c.get('tiers', {}).get(tier, []):
+        src = t.get('source', '')
+        if src and t.get('type') not in ('generated', 'checks') and not os.path.exists(src):
+            broken.append(src)
+print(len(broken))
+\" 2>&1"
+    validator: "equals:0"
+    phase: integrity
+    critical: true
+
+  - name: memory-index-under-limit
+    description: "Memory index file stays under 200 lines to avoid context bloat"
+    command: "find . -maxdepth 3 -name 'MEMORY.md' -exec wc -l {} \\; 2>/dev/null | awk '{if($1>200) print $2}' | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+
+  - name: disk-space-sufficient
+    description: "At least 500MB free on project disk"
+    command: "df -m . | tail -1 | awk '{print ($4 >= 500) ? \"ok\" : \"low\"}'"
+    validator: "contains:ok"
+    phase: integrity
+    critical: true
+
+  - name: no-retired-tech-references
+    description: "No references to deprecated or removed technologies in code"
+    command: "grep -rl 'DEPRECATED\\|REMOVED\\|DO NOT USE' rules/ hooks/ 2>/dev/null | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+    optional: true
+
+  - name: architecture-docs-exist
+    description: "Architecture decision records referenced in config exist on disk"
+    command: "find docs/ -name 'adr-*.md' -o -name 'ADR-*.md' 2>/dev/null | wc -l | tr -d ' '"
+    validator: not_empty
+    phase: integrity
+    critical: false
+    optional: true
+
+  - name: no-pii-in-outputs
+    description: "No email addresses or phone numbers in generated output files"
+    command: "grep -rlE '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}|\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b' output/ generated/ 2>/dev/null | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+
+  - name: no-large-temp-files
+    description: "No temp files over 50MB bloating the project directory"
+    command: "find . -maxdepth 3 -name '*.tmp' -o -name '*.log' -o -name '*.bak' 2>/dev/null | xargs ls -la 2>/dev/null | awk '{if($5>52428800) print $9}' | wc -l | tr -d ' '"
+    validator: "equals:0"
+    phase: quality
+    critical: false
+    optional: true

@@ -79,9 +79,17 @@ stop:
   require_transcript: false                 # block exit until transcript saved
   max_retries: 8                            # how many times to retry before force-exit
 
-# --- Paths ---
-paths:
-  manifest: "${TMPDIR}/manifest-${SESSION_ID}.json"
-  sentinel: "${TMPDIR}/startup-complete-${SESSION_ID}.json"
-  tier1_prefix: "${TMPDIR}/tier1-"
-  tier2_prefix: "${TMPDIR}/tier2-"
+# --- Cross-Check (Level 3) ---
+# Compare expected state against live commands after Tier 1 loads.
+# Auto-heal safe items, log remaining drift. Runs once per session.
+cross_check:
+  expected_counts:
+    rule_count:
+      command: "find rules/ -name '*.md' | wc -l | tr -d ' '"
+      expected: 1
+      auto_heal: false
+    # Add your own checks:
+    # test_count:
+    #   command: "find tests/ -name 'test_*.py' | wc -l | tr -d ' '"
+    #   expected: 10
+    #   auto_heal: false

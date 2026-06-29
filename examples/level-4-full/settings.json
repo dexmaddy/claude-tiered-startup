@@ -1,5 +1,5 @@
 {
-  "_comment": "Level 4: Full architecture — all 4 hooks active.",
+  "_comment": "Level 4: Full architecture — all 5 hooks active.",
   "hooks": {
     "SessionStart": [
       {
@@ -32,6 +32,18 @@
           {
             "type": "command",
             "command": "python3 .claude/hooks/on_prompt_submit.py",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/on_edit.py",
             "timeout": 5000
           }
         ]

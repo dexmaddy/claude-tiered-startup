@@ -134,7 +134,20 @@ def main() -> None:
         deny(f"Tier 1 startup incomplete. Still need to read: {', '.join(sorted(missing))}")
         return
 
-    # Gate 3: Check for Tier 2 triggers (advisory, not blocking)
+    # Gate 3: Run cross-check once after tier1 completes
+    if not sentinel.get("cross_check_done") and manifest.get("cross_check"):
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["python3", os.path.join(os.path.dirname(__file__), "cross_check.py")],
+                capture_output=True, text=True, timeout=15
+            )
+            if result.stdout.strip():
+                sentinel = read_json(SENTINEL) or sentinel
+        except Exception:
+            pass
+
+    # Gate 4: Check for Tier 2 triggers (advisory, not blocking)
     triggered = check_tier2_triggers(tool_input, manifest)
     if triggered:
         names = [t["name"] for t in triggered]

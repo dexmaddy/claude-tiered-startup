@@ -117,6 +117,7 @@ def write_manifest(tier1_entries: list[dict], tier2_defs: list[dict], config: di
         ],
         "gates": config.get("gates", {}),
         "stop": config.get("stop", {}),
+        "cross_check": config.get("cross_check", {}),
     }
     Path(manifest_path).write_text(json.dumps(manifest, indent=2))
     return manifest_path

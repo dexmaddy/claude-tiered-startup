@@ -217,6 +217,8 @@ graph LR
 See the [full check library](../reference/audit-runner.md#check-library-reference)
 for all 22 checks with "What It Catches / Why It Matters" tables.
 
+**DB mode note:** When using SQLite, the stop hook also enforces no-truncation — it verifies stored rule content length matches the source, blocking exit if any rule was silently truncated during a batch insert.
+
 ---
 
 ## What You've Built (Full Level 4)

@@ -233,6 +233,7 @@ data store. Only the **source** of rules, checks, and config changes.
 | Dependencies | PyYAML | None (sqlite3 is Python stdlib) |
 | Init command | Create YAML manually | `python3 on_session_start.py --init-db project.db` |
 | Rule grouping | One file per source | Auto-grouped by `category` column |
+| Truncation guard | N/A (files are read whole) | Stop hook verifies stored length matches source |
 
 Everything downstream of the SessionStart hook (manifest, sentinel, gates,
 tier2 triggers, cross-check, stop hook) works identically regardless of

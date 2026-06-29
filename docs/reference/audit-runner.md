@@ -175,6 +175,7 @@ Defined in `checks/audit-checks-db.yaml`. Apply when using the database data sto
 | `no-orphaned-records` | Foreign key violations (broken references between tables) | Queries return incomplete data; joins silently drop rows | Yes |
 | `no-empty-critical-tables` | Required tables have zero rows | System runs but with no rules/checks; appears healthy but isn't | No |
 | `db-size-reasonable` | Database file exceeds 100MB | Slow queries; backup failures; disk pressure | No |
+| `no-truncated-rules` | Rule content in DB is shorter than source file | Silent truncation during batch insert; agent runs with incomplete rules | Yes |
 
 ## YAML Check Schema
 

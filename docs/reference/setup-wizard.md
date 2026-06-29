@@ -59,6 +59,7 @@ wizard configures additional features that activate automatically via the
 | **Edit logging** | Every Write/Edit operation is logged to the `rule_log` table via `on_edit.py` |
 | **Session summary enforcement** | `on_stop.py` requires a `session_summaries` row before allowing exit |
 | **Stale fact detection** | `gate_check.py` warns when `system_facts` or `fact_references` contain stale entries |
+| **No-truncation enforcement** | `on_stop.py` verifies stored rule content length matches source; blocks exit if truncated |
 
 These require three additional tables in your database:
 

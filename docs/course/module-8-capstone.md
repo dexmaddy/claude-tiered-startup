@@ -240,6 +240,7 @@ Run through each item and confirm:
 - [ ] `shutdown_steps` configured for project-specific exit checks (linting, formatting, etc.)
 - [ ] DB mode: `require_session_summary: true` ensures learnings are captured each session
 - [ ] DB mode: edit logging active (`AGENT_DB_PATH` set, `rule_log` table populated)
+- [ ] DB mode: no-truncation enforcement active (stop hook verifies stored rule length matches source)
 
 ---
 

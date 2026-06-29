@@ -279,7 +279,7 @@ def test_stop_hook() -> None:
 
 
 def main() -> None:
-    log("SMOKE TEST — Tiered Startup Architecture")
+    log("SMOKE TEST — Agentic AI Tiered Startup Architecture")
     log("=" * 50)
 
     test_validators()

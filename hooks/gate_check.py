@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PreToolUse hook: enforce tiered startup gates.
 
-Level 2 of the Tiered Startup Architecture.
+Level 2 of the Agentic AI Tiered Startup Architecture.
 Blocks non-Read tools until all Tier 1 files are read.
 Level 3 adds Tier 2 on-demand loading via keyword triggers.
 

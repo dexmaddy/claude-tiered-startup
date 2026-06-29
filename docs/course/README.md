@@ -1,4 +1,4 @@
-# Tiered Startup Architecture — Mini Course
+# Agentic AI Tiered Startup Architecture — Mini Course
 
 A structured, self-paced course for building reliable AI agent sessions
 that start with the right context, enforced structurally.

@@ -140,7 +140,7 @@ file and update your agent instructions:
 ```markdown
 ## Startup
 
-This project uses the Tiered Startup Architecture.
+This project uses the Agentic AI Tiered Startup Architecture.
 At session start, the SessionStart hook generates a manifest and tier1 files.
 Read the manifest from hook output, then read ALL tier1 files before doing
 any work. Gates enforce this — tools are blocked until all files are read.

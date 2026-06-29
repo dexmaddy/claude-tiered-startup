@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PostToolUse hook: actions after file writes.
 
-Level 4 of the Tiered Startup Architecture.
+Level 4 of the Agentic AI Tiered Startup Architecture.
 Runs after every Write/Edit tool call. Extend with your own post-write actions.
 
 Common uses:

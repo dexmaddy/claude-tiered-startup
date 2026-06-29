@@ -1,4 +1,4 @@
-# Tiered Startup Architecture
+# Agentic AI Tiered Startup Architecture
 
 A progressive, hook-based system that ensures AI agent sessions start with
 the right context loaded, enforced structurally — not by hoping the agent reads

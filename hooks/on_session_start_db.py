@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SessionStart hook (Database variant): read rules from SQLite, generate tier files.
 
-Method B of the Tiered Startup Architecture.
+Method B of the Agentic AI Tiered Startup Architecture.
 Use this instead of on_session_start.py when your rules, backlog, and session
 state live in a SQLite database rather than YAML config files.
 

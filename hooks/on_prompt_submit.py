@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """UserPromptSubmit hook: startup gate + context health warnings.
 
-Level 2 of the Tiered Startup Architecture.
+Level 2 of the Agentic AI Tiered Startup Architecture.
 - If Tier 1 is not complete, injects a blocking message telling Claude to read files first.
 - After startup, tracks prompt count and warns at configurable thresholds.
 

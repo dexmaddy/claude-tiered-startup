@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stop hook: enforce shutdown checks before session exit.
 
-Level 4 of the Tiered Startup Architecture.
+Level 4 of the Agentic AI Tiered Startup Architecture.
 Blocks session exit (exit code 2 = retry) until configured checks pass.
 After max retries, exits cleanly to avoid trapping the user.
 

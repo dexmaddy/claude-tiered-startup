@@ -1,10 +1,3 @@
----
-layout: default
-title: "Module 4: Adding Gates"
-parent: Course
-nav_order: 4
----
-
 # Module 4: Adding Gates
 
 **Time:** 20 minutes

@@ -1,9 +1,3 @@
----
-layout: default
-title: Rule Evolution
-nav_order: 4
----
-
 # Rule Evolution: From Failure to Enforcement
 
 Rules that exist "just in case" get ignored. Rules born from real failures

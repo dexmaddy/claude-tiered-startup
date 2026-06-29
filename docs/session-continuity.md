@@ -1,9 +1,3 @@
----
-layout: default
-title: Session Continuity
-nav_order: 6
----
-
 # Session Continuity: Persistent Backlog + Session Handoff
 
 AI agent sessions are ephemeral — when a session ends, the agent's

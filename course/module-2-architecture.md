@@ -1,10 +1,3 @@
----
-layout: default
-title: "Module 2: Architecture Concepts"
-parent: Course
-nav_order: 2
----
-
 # Module 2: Architecture Concepts
 
 **Time:** 15 minutes

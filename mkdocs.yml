@@ -1,0 +1,81 @@
+site_name: Tiered Startup Architecture
+site_description: A hook-based system for reliable AI agent sessions
+site_url: https://dexmaddy.github.io/agentic-ai-tiered-startup/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+repo_url: https://github.com/dexmaddy/agentic-ai-tiered-startup
+repo_name: dexmaddy/agentic-ai-tiered-startup
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_mermaid
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: README.md
+  - Getting Started:
+    - Setup Wizard: docs/setup-wizard.md
+    - Bootstrapping Guide: docs/bootstrapping-guide.md
+  - Course:
+    - Overview: course/README.md
+    - "Module 1: The Problem": course/module-1-the-problem.md
+    - "Module 2: Architecture": course/module-2-architecture.md
+    - "Module 3: First Hook": course/module-3-first-hook.md
+    - "Module 4: Adding Gates": course/module-4-gates.md
+    - "Module 5: Advanced": course/module-5-advanced.md
+    - "Module 6: Anti-Hallucination": course/module-6-anti-hallucination.md
+    - "Module 7: Feedback Loop": course/module-7-feedback-loop.md
+    - "Module 8: Capstone": course/module-8-capstone.md
+  - Reference:
+    - Anti-Hallucination Rules: rules/anti-hallucination-rules.md
+    - Rule Evolution: docs/rule-evolution-template.md
+    - Session Continuity: docs/session-continuity.md
+  - Slides: slides.md

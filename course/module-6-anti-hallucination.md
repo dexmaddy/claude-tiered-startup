@@ -1,10 +1,3 @@
----
-layout: default
-title: "Module 6: Anti-Hallucination Rules"
-parent: Course
-nav_order: 6
----
-
 # Module 6: Anti-Hallucination Rules
 
 **Time:** 15 minutes

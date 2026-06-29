@@ -45,7 +45,7 @@ checks:
     fail_message: "Uncommitted changes detected"
 
   - name: db-health
-    command: "sqlite3 project.db 'PRAGMA integrity_check'"
+    command: "sqlite3 project.db 'PRAGMA integrity_check'"  # adapt for your DB (Postgres, MySQL, etc.)
     validator: "contains:ok"                # pass if stdout contains "ok"
     fail_message: "Database integrity check failed"
 

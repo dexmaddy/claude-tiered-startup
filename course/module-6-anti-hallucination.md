@@ -15,7 +15,7 @@ research-backed rules to prevent it.
 
 ## Why This Matters
 
-If you use Claude to summarize documents, generate reports, or extract
+If you use the agent to summarize documents, generate reports, or extract
 information from source data, hallucination is your biggest risk.
 
 **What hallucination looks like in practice:**
@@ -25,7 +25,7 @@ information from source data, hallucination is your biggest risk.
   isn't in the source (benign hallucination)
 
 **The numbers:**
-- Claude's benign hallucination rate: **21.31%** (FaithBench, NAACL 2025)
+- the agent's benign hallucination rate: **21.31%** (FaithBench, NAACL 2025)
 - Reasoning models hallucinate **4.2x more** on grounded summarization (Vectara HHEM)
 - More thinking time = **worse faithfulness** (r = -0.685, Yuan & Zhang 2025)
 
@@ -130,7 +130,7 @@ tiers:
       description: "Anti-hallucination rules"
 ```
 
-Rules load only when Claude is about to summarize or analyze something.
+Rules load only when the agent is about to summarize or analyze something.
 
 ### Option C: Embed in Prompts (no hooks needed)
 
@@ -164,7 +164,7 @@ Common mappings:
 The research consistently shows: **more thinking = worse faithfulness
 for generation tasks.** This applies to:
 
-- Claude's extended thinking mode
+- the agent's extended thinking mode
 - Chain-of-thought prompting for summary generation
 - Iterative refinement beyond 3-4 rounds
 

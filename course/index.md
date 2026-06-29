@@ -8,15 +8,15 @@ permalink: /course/
 
 # Tiered Startup Architecture — Mini Course
 
-A structured, self-paced course for building reliable Claude Code sessions
+A structured, self-paced course for building reliable AI agent sessions
 that start with the right context, enforced structurally.
 
 ## Who This Is For
 
-- Claude Code users whose sessions start inconsistently
+- AI agent users whose sessions start inconsistently
 - Teams whose agents forget project rules mid-conversation
-- Anyone who has written "Claude must read X first" in CLAUDE.md and
-  watched Claude ignore it
+- Anyone who has written "the agent must read X first" in your instructions file and
+  watched the agent ignore it
 
 ## What You'll Learn
 
@@ -44,8 +44,8 @@ By the end of this course, you will:
 
 ## Prerequisites
 
-- Claude Code installed and working
-- A project you actively use Claude Code with (any language/framework)
+- An AI coding agent installed (e.g., AI coding agents, Cursor, Windsurf, Aider)
+- A project you actively use AI coding agents with (any language/framework)
 - Basic familiarity with JSON and Python (reading, not writing)
 - No database required — everything uses YAML config files
 
@@ -56,7 +56,7 @@ builds on the previous one. Best for first-time learners.
 
 **Option B — Pick what you need:**
 - "My sessions are inconsistent" → Start with Modules 1-3
-- "Claude ignores my rules" → Modules 2 + 4
+- "the agent ignores my rules" → Modules 2 + 4
 - "My summaries have errors" → Module 6
 - "I keep fixing the same mistakes" → Module 7
 - "I want the full system" → All modules, then Module 8 capstone
@@ -67,7 +67,7 @@ Before starting, rate your current pain level (1-5):
 
 ```
 [ ] Sessions start differently each time               ___/5
-[ ] Claude forgets rules I've written in CLAUDE.md      ___/5
+[ ] The agent forgets rules I've written in your instructions file      ___/5
 [ ] I correct the same mistakes across sessions         ___/5
 [ ] LLM outputs contain unsourced or inaccurate claims  ___/5
 [ ] I spend tokens loading context that isn't needed    ___/5

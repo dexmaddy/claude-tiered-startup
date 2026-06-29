@@ -8,25 +8,25 @@ nav_order: 4
 # Module 4: Adding Gates
 
 **Time:** 20 minutes
-**Goal:** Add structural enforcement — Claude cannot use any tool until
+**Goal:** Add structural enforcement — the agent cannot use any tool until
 all tier1 files are read. Add prompt-level gate as a second layer.
 
 ---
 
 ## Why Gates Matter
 
-In Module 3, Claude *should* read the tier1 files but *can* skip them.
+In Module 3, the agent *should* read the tier1 files but *can* skip them.
 There's no enforcement. This module adds two gates that make reading
 the files mandatory:
 
 | Gate | Hook | What It Does |
 |------|------|-------------|
 | Tool Gate | PreToolUse | Blocks Bash, Write, Edit, Agent — only allows Read |
-| Prompt Gate | UserPromptSubmit | Injects "read files first" into Claude's context |
+| Prompt Gate | UserPromptSubmit | Injects "read files first" into the agent's context |
 
 Together, these create a two-layer defense:
-- **Tool Gate** prevents Claude from doing work without rules
-- **Prompt Gate** prevents Claude from responding without rules
+- **Tool Gate** prevents the agent from doing work without rules
+- **Prompt Gate** prevents the agent from responding without rules
 
 ---
 
@@ -91,20 +91,20 @@ Update `.claude/settings.json`:
 
 ## Step 4: Test the Gates (5 minutes)
 
-Start a new session. Before Claude reads any tier1 files:
+Start a new session. Before the agent reads any tier1 files:
 
-1. **Try asking Claude to run a command** — the Tool Gate should block it:
+1. **Try asking the agent to run a command** — the Tool Gate should block it:
    ```
    DENIED: Tier 1 startup incomplete. Still need to read: core-rules, infra-report
    ```
 
-2. **Claude sees the Prompt Gate message:**
+2. **the agent sees the Prompt Gate message:**
    ```
    STARTUP INCOMPLETE: 2 Tier 1 files still unread.
    Read these files BEFORE responding to the user.
    ```
 
-3. **After Claude reads all tier1 files** — tools are unblocked and work normally.
+3. **After the agent reads all tier1 files** — tools are unblocked and work normally.
 
 ---
 
@@ -113,7 +113,7 @@ Start a new session. Before Claude reads any tier1 files:
 ### The Tool Gate Flow
 
 ```
-Claude tries: Bash("npm test")
+the agent tries: Bash("npm test")
        │
        v
 gate_check.py reads sentinel
@@ -128,7 +128,7 @@ gate_check.py reads sentinel
        └── All clear → ALLOW
 ```
 
-**Key insight:** Read is always allowed. That's how Claude loads the tier1
+**Key insight:** Read is always allowed. That's how the agent loads the tier1
 files that unlock everything else. The gate is a one-way door: once tier1
 is complete, it stays complete for the rest of the session.
 
@@ -141,15 +141,15 @@ User sends message
 on_prompt_submit.py reads sentinel
        │
        ├── Is tier1 complete?
-       │     NO  → Inject "read files first" into Claude's context
+       │     NO  → Inject "read files first" into the agent's context
        │     YES → Track prompt count, warn at thresholds
        │
        v
-Claude composes response (with injected context if startup incomplete)
+The agent composes response (with injected context if startup incomplete)
 ```
 
-**Key insight:** Even if Claude somehow bypasses the Tool Gate, the Prompt
-Gate ensures Claude sees "read files first" before every response. Two
+**Key insight:** Even if the agent somehow bypasses the Tool Gate, the Prompt
+Gate ensures the agent sees "read files first" before every response. Two
 independent enforcement mechanisms.
 
 ### Context Health Warnings
@@ -169,8 +169,8 @@ This prevents the silent quality degradation that happens in long sessions.
 
 ## File Read Tracking
 
-The gate tracks which files Claude has read by matching file paths.
-When Claude uses the Read tool on a file, the gate compares the path
+The gate tracks which files the agent has read by matching file paths.
+When the agent uses the Read tool on a file, the gate compares the path
 against all manifest entries.
 
 ```python
@@ -189,10 +189,10 @@ flips to `"complete"` and tools are unblocked.
 
 ## Troubleshooting
 
-### Claude is stuck in a loop trying to read files
+### the agent is stuck in a loop trying to read files
 The gate might not be recognizing the file reads. Check:
 - Is the file path in the manifest correct?
-- Did Claude read the file at the exact path listed in the manifest?
+- Did the agent read the file at the exact path listed in the manifest?
 - Check the sentinel: `cat /tmp/startup-complete-*.json`
 
 ### Gate blocks everything including Read

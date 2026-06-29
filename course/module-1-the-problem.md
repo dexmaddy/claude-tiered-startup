@@ -17,14 +17,14 @@ and diagnose which ones affect your project.
 
 ### Problem 1: Context Waste
 
-Every Claude Code session has a finite context window. Everything Claude
+Every AI agent session has a finite context window. Everything the agent
 reads — files, command output, your messages — consumes tokens from that
 window. When the window fills, older content is compressed or lost.
 
 **The waste pattern:**
 ```
 Session starts
-  → Claude reads 3000 lines of rules (costs ~4K tokens)
+  → the agent reads 3000 lines of rules (costs ~4K tokens)
   → User asks to fix a typo
   → 4K tokens wasted on rules that weren't needed
 ```
@@ -38,7 +38,7 @@ rules only when the task needs them.
 ### Problem 2: Rule Drift
 
 Your project has facts that change: table counts, API endpoints, version
-numbers, team conventions. These facts live in CLAUDE.md, memory files,
+numbers, team conventions. These facts live in your instructions file, memory files,
 or rule documents.
 
 **The drift pattern:**
@@ -46,7 +46,7 @@ or rule documents.
 Week 1: CLAUDE.md says "58 rules in the system"
 Week 3: You added 4 more rules
 Week 5: CLAUDE.md still says "58 rules"
-         Claude trusts the stale number
+         The agent trusts the stale number
          References the wrong rule count in outputs
 ```
 
@@ -58,7 +58,7 @@ file or database) at session start. Detect drift automatically.
 
 ### Problem 3: Startup Chaos
 
-You write "Claude must read these files at startup" in CLAUDE.md. Claude
+You write "the agent must read these files at startup" in your instructions file. The agent
 reads it. Then:
 
 - Reads 4 of 6 files and starts working
@@ -69,15 +69,15 @@ reads it. Then:
 **The chaos pattern:**
 ```
 CLAUDE.md: "Always read rules/core.md before any task"
-Reality:   Claude read it in 3 of 10 sessions
+Reality:   the agent read it in 3 of 10 sessions
            In 2 sessions, it was lost to context compaction
-           In 5 sessions, Claude started working immediately
+           In 5 sessions, the agent started working immediately
 ```
 
 Writing instructions in a markdown file is documentation, not enforcement.
-There's no mechanism to guarantee Claude follows them.
+There's no mechanism to guarantee the agent follows them.
 
-**The fix:** Structural enforcement — hooks that physically block Claude
+**The fix:** Structural enforcement — hooks that physically block the agent
 from using tools until the rules are loaded.
 
 ---
@@ -86,7 +86,7 @@ from using tools until the rules are loaded.
 
 ### Exercise 1: Count the Waste (5 minutes)
 
-Open your CLAUDE.md or project instructions. Estimate:
+Open your project instructions or project instructions. Estimate:
 
 1. **Total lines of instructions:** ___
 2. **Lines needed for a typical session:** ___
@@ -112,8 +112,8 @@ Common drift candidates:
 
 ### Exercise 3: Test the Enforcement (2 minutes)
 
-Start a fresh Claude Code session and immediately ask a question
-(don't mention startup or rules). Does Claude:
+Start a fresh AI agent session and immediately ask a question
+(don't mention startup or rules). Does the agent:
 
 - [ ] Read your rule files before answering? → You're already enforced
 - [ ] Answer directly, skipping rule files? → You need gates

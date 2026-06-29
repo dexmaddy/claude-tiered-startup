@@ -17,7 +17,7 @@ PostToolUse actions, and the stop hook.
 
 ### The Concept
 
-Tier 2 files load only when Claude's tool calls contain matching keywords.
+Tier 2 files load only when the agent's tool calls contain matching keywords.
 This keeps specialized rules out of the context window until they're needed.
 
 ### Step 1: Define Tier 2 Rules
@@ -62,7 +62,7 @@ Start a session, complete tier1 loading, then:
 You: deploy the app to staging
 ```
 
-Claude tries to run a Bash command containing "deploy" → gate scans
+the agent tries to run a Bash command containing "deploy" → gate scans
 the command text → finds "deploy" matches the deploy-rules trigger →
 blocks with:
 
@@ -71,7 +71,7 @@ Tier 2 files triggered — read before proceeding:
   - deploy-rules: rules/deploy-rules.md
 ```
 
-Claude reads the file, then the next tool call is allowed.
+the agent reads the file, then the next tool call is allowed.
 
 ### False Positive Prevention
 
@@ -84,7 +84,7 @@ Keyword scanning is limited to prevent accidental triggers:
 2. **First N characters only** — default 120 chars. A long file being
    written won't trigger just because the content mentions "deploy".
 
-3. **Already-loaded files skip** — once Claude reads a tier2 file,
+3. **Already-loaded files skip** — once the agent reads a tier2 file,
    that trigger won't fire again in the same session.
 
 **Tip:** If you get false positives, make triggers more specific:
@@ -236,7 +236,7 @@ on_stop.py checks repos
        └── Dirty? → exit 2 (retry)
                      │
                      v
-               Claude sees: "Repos not clean: 3 uncommitted files"
+               the agent sees: "Repos not clean: 3 uncommitted files"
                Claude runs: git add + git commit
                      │
                      v

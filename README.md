@@ -1,22 +1,22 @@
-# Tiered Startup Architecture for Claude Code
+# Tiered Startup Architecture for AI coding agents
 
-A progressive, hook-based system that ensures Claude Code sessions start with
-the right context loaded, enforced structurally — not by hoping Claude reads
-your CLAUDE.md carefully.
+A progressive, hook-based system that ensures AI agent sessions start with
+the right context loaded, enforced structurally — not by hoping the agent reads
+your project instructions carefully.
 
 ## The Problem
 
-Without managed startup, Claude Code sessions suffer from three issues:
+Without managed startup, AI agent sessions suffer from three issues:
 
 1. **Context waste** — loading everything every session burns tokens on rules
    that aren't needed for the current task. A 3000-line rule set costs ~4K
    tokens on every session, even when you're just fixing a typo.
 
-2. **Rule drift** — facts, counts, and references go stale. Your CLAUDE.md
+2. **Rule drift** — facts, counts, and references go stale. Your project instructions
    says "58 rules" but the DB has 62. No one notices until a rule is missed.
 
 3. **Startup chaos** — CLAUDE.md says "read these files" but there's no
-   enforcement. Claude skips files, partially loads context, or starts working
+   enforcement. the agent skips files, partially loads context, or starts working
    before critical rules are loaded. Writing "you must read X" in a markdown
    file is documentation, not enforcement.
 
@@ -26,7 +26,7 @@ This architecture solves all three with **tiered loading** (load what's needed),
 
 ## Architecture Overview
 
-Four Claude Code hook points work together:
+Four AI coding agents hook points work together:
 
 ```
 SessionStart                    PreToolUse
@@ -51,7 +51,7 @@ UserPromptSubmit                Stop
 **Manifest** (`manifest.json`) — lists all tier1/tier2 files with paths, sizes,
 and trigger keywords. Generated fresh each session.
 
-**Sentinel** (`startup-complete-{session}.json`) — tracks which files Claude has
+**Sentinel** (`startup-complete-{session}.json`) — tracks which files the agent has
 read, whether tier1 is complete, and whether cross-check has run. Session-scoped
 to prevent collisions between concurrent or resumed sessions.
 
@@ -119,7 +119,7 @@ Add to your `.claude/settings.json` (or copy from `examples/level-1-minimal/`):
 
 ### 4. Start a session
 
-Claude sees this output at session start:
+the agent sees this output at session start:
 
 ```
 STARTUP: 2 OK, 0 FAIL
@@ -130,7 +130,7 @@ ACTION REQUIRED: Read manifest, then read all Tier 1 files.
   - /tmp/tier1-infra-report-abc123.md (15 lines, infra-report)
 ```
 
-Add to your CLAUDE.md:
+Add to your project instructions:
 
 ```markdown
 ## Startup
@@ -142,14 +142,14 @@ before responding to any user message.
 
 ## Level 2: Add Gates
 
-Level 1 relies on Claude voluntarily reading files. Level 2 **enforces** it —
-Claude cannot use any tool except Read until all tier1 files are loaded.
+Level 1 relies on the agent voluntarily reading files. Level 2 **enforces** it —
+the agent cannot use any tool except Read until all tier1 files are loaded.
 
 ### What changes
 
 1. **PreToolUse gate** — blocks Bash, Write, Edit, Agent, etc. until tier1 is
-   complete. Only Read is allowed (so Claude can load the files).
-2. **UserPromptSubmit gate** — injects "read files first" into Claude's context
+   complete. Only Read is allowed (so the agent can load the files).
+2. **UserPromptSubmit gate** — injects "read files first" into the agent's context
    if tier1 is incomplete. Also tracks prompt count and warns at thresholds.
 
 ### Install
@@ -173,21 +173,21 @@ PreToolUse and UserPromptSubmit hooks to your existing settings.
 ### How it works
 
 1. SessionStart generates tier1 files + writes sentinel with `stage: "tier1_pending"`
-2. Claude tries to use Bash → PreToolUse gate reads sentinel → tier1 incomplete → **DENIED**
-3. Claude reads tier1 files → gate_check tracks each Read in sentinel
+2. the agent tries to use Bash → PreToolUse gate reads sentinel → tier1 incomplete → **DENIED**
+3. the agent reads tier1 files → gate_check tracks each Read in sentinel
 4. All tier1 files read → sentinel updated to `stage: "complete"`
-5. Claude tries Bash again → gate checks sentinel → tier1 complete → **ALLOWED**
+5. the agent tries Bash again → gate checks sentinel → tier1 complete → **ALLOWED**
 
-The UserPromptSubmit hook adds a second layer: if Claude somehow ignores the
+The UserPromptSubmit hook adds a second layer: if the agent somehow ignores the
 PreToolUse denial, the prompt gate injects a message saying "read files first"
-that Claude sees before composing its response.
+that the agent sees before composing its response.
 
 ---
 
 ## Level 3: On-Demand Tier 2
 
 Not all rules are needed every session. Tier 2 files load **only when relevant
-keywords appear** in Claude's tool calls.
+keywords appear** in the agent's tool calls.
 
 ### What changes
 
@@ -207,11 +207,11 @@ tiers:
 
 ### How it works
 
-1. Claude runs `Bash("curl api.example.com/...")` 
+1. the agent runs `Bash("curl api.example.com/...")` 
 2. PreToolUse gate scans the command text for tier2 triggers
 3. Finds "api" matches the `api-rules` trigger → **DENIES** with message:
    "Tier 2 files triggered — read before proceeding: api-rules"
-4. Claude reads the file → gate tracks it → next tool call is allowed
+4. the agent reads the file → gate tracks it → next tool call is allowed
 
 **Keyword scanning is limited** to prevent false positives:
 - Only scans specific JSON fields (command, file_path, prompt, description)
@@ -254,7 +254,7 @@ stop:
   max_retries: 8
 ```
 
-The stop hook returns exit code 2 (retry) when checks fail. Claude sees the
+The stop hook returns exit code 2 (retry) when checks fail. the agent sees the
 failure message and can fix the issue (e.g., commit uncommitted files). After
 max retries, it exits cleanly to avoid trapping the user.
 
@@ -286,7 +286,7 @@ VALIDATORS["my_check"] = lambda stdout: (
 All temp files include the session ID suffix (`-{SESSION_ID}`). This prevents:
 - Concurrent sessions overwriting each other's state
 - Resumed sessions reading stale sentinel from a previous run
-- Race conditions between multiple Claude Code instances
+- Race conditions between multiple AI coding agents instances
 
 ---
 
@@ -294,11 +294,11 @@ All temp files include the session ID suffix (`-{SESSION_ID}`). This prevents:
 
 When adapting this to your project:
 
-- [ ] **Tier 1 files** — what rules/context must Claude always have? Keep under ~1500 lines total
+- [ ] **Tier 1 files** — what rules/context must the agent always have? Keep under ~1500 lines total
 - [ ] **Tier 2 files** — what's only needed sometimes? Pick trigger keywords that are specific enough to avoid false positives
 - [ ] **Infrastructure checks** — what should be verified at startup? (DB health, git clean, tests pass, services running)
 - [ ] **Validators** — do any checks need custom stdout parsing?
-- [ ] **Prompt thresholds** — at what prompt counts should Claude warn about context health?
+- [ ] **Prompt thresholds** — at what prompt counts should the agent warn about context health?
 - [ ] **Stop checks** — what must be done before session exit? (commit, save transcript, sync files)
 - [ ] **File paths** — update `startup-config.yaml` sources to point to your actual files
 
@@ -309,7 +309,7 @@ When adapting this to your project:
 These insights emerged from building and iterating on this system across dozens
 of sessions:
 
-1. **Documenting is not doing.** Writing "Claude must read X at startup" in
+1. **Documenting is not doing.** Writing "the agent must read X at startup" in
    CLAUDE.md doesn't make it happen. Structural enforcement (hooks that block
    tools) is the only reliable mechanism. If it's not enforced, it's optional.
 
@@ -329,11 +329,11 @@ of sessions:
    max, then continue). Unbounded self-healing loops can spiral when fixes
    create new drift. Fix what's safe, log the rest, move on.
 
-6. **Gate, don't nag.** A CLAUDE.md instruction that says "please read X first"
+6. **Gate, don't nag.** A written instruction that says "please read X first"
    is a suggestion. A PreToolUse hook that returns `permissionDecision: "deny"`
    is a gate. Gates work. Suggestions don't.
 
-7. **Track reads, not intentions.** The sentinel tracks which files Claude
+7. **Track reads, not intentions.** The sentinel tracks which files the agent
    *actually read* (via Read tool path matching), not which files it was
    *told to read*. This closes the gap between "I loaded the rules" and
    "the rules are in my context."
@@ -424,11 +424,33 @@ claude-tiered-startup/
 └── LICENSE                            # MIT
 ```
 
+## Platform Compatibility
+
+The **concepts** (tiered loading, gating, drift detection, anti-hallucination
+rules) apply to any AI agent system. The **reference implementation** uses
+Claude Code's hooks API, but the patterns adapt to any platform with lifecycle events.
+
+| Platform | How to Adapt |
+|----------|-------------|
+| **Claude Code** | Use as-is — hooks map directly to SessionStart, PreToolUse, etc. |
+| **Cursor** | Use `.cursor/rules/` for tier1 rules, `@rules` for tier2. Gate via custom commands. |
+| **Windsurf** | Use `.windsurfrules` for rules, Cascade memories for tier state tracking. |
+| **Aider** | Use `.aider.conf.yml` conventions + `--read` flag for tier1 loading at startup. |
+| **Continue.dev** | Use `.continuerc.json` context providers for tiered rule loading. |
+| **Custom agents** | Implement the hook pattern as middleware in your agent loop — check state before tool execution. |
+| **LangChain/CrewAI** | Add a startup node/task that loads rules, a gate callback that checks sentinel before tool use. |
+
+**The core pattern is framework-agnostic:**
+1. **Before session work:** load essential context (tier1)
+2. **Before each tool call:** verify context is loaded, trigger on-demand loading (tier2)
+3. **After each modification:** sync state, check for drift
+4. **Before session end:** verify cleanup
+
 ## Requirements
 
 - Python 3.10+
 - PyYAML (`pip install pyyaml`)
-- Claude Code with hooks support
+- An AI coding agent with hook/middleware support (Claude Code, Cursor, Windsurf, Aider, or custom)
 
 ## License
 

@@ -15,7 +15,7 @@ key design decisions that make it work.
 
 ## The Four Hook Points
 
-Claude Code provides hooks — shell commands that run automatically at
+AI coding agents provides hooks — shell commands that run automatically at
 specific moments in a session. This architecture uses four of them:
 
 ```
@@ -81,13 +81,13 @@ Tracks progress through startup:
 {
   "session_id": "abc123",
   "stage": "tier1_pending",        ← becomes "complete" when all read
-  "completed_reads": [],            ← file names added as Claude reads them
+  "completed_reads": [],            ← file names added as the agent reads them
   "cross_check_done": false         ← flips to true after drift check runs
 }
 ```
 
-The sentinel is how the system knows where Claude is in the startup
-process without relying on Claude's self-reporting.
+The sentinel is how the system knows where the agent is in the startup
+process without relying on the agent's self-reporting.
 
 ## The Tier System
 
@@ -112,11 +112,11 @@ sessions that don't need everything.
 
 ### Tier 2: Load On Demand
 
-Rules that apply to specific tasks, loaded when Claude's tool calls
+Rules that apply to specific tasks, loaded when the agent's tool calls
 contain matching keywords.
 
 ```
-Claude runs: Bash("npm run deploy --production")
+Agent runs: Bash("npm run deploy --production")
                                       ↑
 Gate scans command text, finds "deploy"
                                       ↓
@@ -136,12 +136,12 @@ you from repeating them.
 ### 1. Gate, Don't Nag
 
 CLAUDE.md instructions are suggestions. Hooks that return `permissionDecision: "deny"`
-are gates. Claude can ignore a suggestion; it cannot bypass a denied tool call.
+are gates. the agent can ignore a suggestion; it cannot bypass a denied tool call.
 
 ### 2. Track Reads, Not Intentions
 
-The sentinel tracks which files Claude actually read (detected via file path
-matching in the PreToolUse hook). It does not trust Claude saying "I've loaded
+The sentinel tracks which files the agent actually read (detected via file path
+matching in the PreToolUse hook). It does not trust the agent saying "I've loaded
 the rules." Verify, don't trust.
 
 ### 3. Session-Scope Everything
@@ -178,7 +178,7 @@ startup-config.yaml          ← You write this (your rules, checks, triggers)
 on_session_start.py          ← Reads config, generates files, writes manifest
        │
        ├──→ manifest.json    ← Contract: what files exist, what gates apply
-       ├──→ sentinel.json    ← State: what Claude has read so far
+       ├──→ sentinel.json    ← State: what the agent has read so far
        └──→ tier1-*.md       ← Generated rule files in temp directory
                 │
                 v
@@ -206,7 +206,7 @@ on_stop.py                   ← At session end, verify cleanup
 Before moving to Module 3, make sure you can answer:
 
 1. What's the difference between the manifest and the sentinel?
-2. Why do we track file reads in the sentinel instead of trusting Claude?
+2. Why do we track file reads in the sentinel instead of trusting the agent?
 3. When should a rule be tier1 vs tier2?
 4. Why do we parse stdout instead of checking exit codes?
 

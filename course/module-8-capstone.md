@@ -50,7 +50,7 @@ Create specialized rule files for task-specific knowledge:
 - [ ] `rules/testing-rules.md` — test conventions
 - [ ] `rules/api-rules.md` — API standards
 
-Only create files for areas where Claude has made mistakes.
+Only create files for areas where the agent has made mistakes.
 
 **1.3 — Add anti-hallucination rules**
 
@@ -155,7 +155,7 @@ All checks should pass.
 
 **4.2 — Live test**
 
-Start a Claude Code session:
+Start a AI agent session:
 1. Verify startup output shows your tier1 files
 2. Try using a tool before reading tier1 → should be blocked
 3. Read all tier1 files → tools should unblock
@@ -166,7 +166,7 @@ Start a Claude Code session:
 
 **5.1 — Intentionally trigger a failure**
 
-Ask Claude something where it might make a mistake (use the wrong
+Ask the agent something where it might make a mistake (use the wrong
 API version, wrong test framework, wrong file path).
 
 **5.2 — Capture the failure**

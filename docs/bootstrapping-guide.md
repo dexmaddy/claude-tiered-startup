@@ -13,8 +13,8 @@ content that makes the hooks actually useful. Takes ~15 minutes.
 
 ## Step 1: Identify Your Top 5 Repeated Mistakes
 
-Every project has patterns Claude gets wrong repeatedly. Think about the
-last 5 times you had to correct Claude. Write them down:
+Every project has patterns the agent gets wrong repeatedly. Think about the
+last 5 times you had to correct the agent. Write them down:
 
 ```
 1. _______________________________________________
@@ -62,7 +62,7 @@ removed in the March 2026 migration but still appear in old documentation.
 - DO: fetch("/api/v2/users")
 - DON'T: fetch("/api/v1/users")
 
-**Why:** Claude used v1 endpoints three times in one session because the
+**Why:** the agent used v1 endpoints three times in one session because the
 old README still referenced them. Each time the app threw 404s.
 
 **How to apply:** Before writing any fetch/axios call, verify the endpoint
@@ -80,7 +80,7 @@ The README table was last updated in January and is missing 4 columns.
 - DO: Check migrations/latest.sql for column names and types
 - DON'T: Trust the schema table in README.md
 
-**Why:** Claude added a query using column "user_email" from the README
+**Why:** The agent added a query using column "user_email" from the README
 but the actual column is "email" (renamed in migration 042).
 
 **How to apply:** Before writing any SQL query, read the migration files
@@ -98,7 +98,7 @@ Staging is us-west-2 ONLY. There is no staging in eu-west-1.
 - DO: Deploy staging to us-west-2
 - DON'T: Deploy staging to eu-west-1 (that's production secondary)
 
-**Why:** Claude suggested deploying a staging test to eu-west-1, which
+**Why:** The agent suggested deploying a staging test to eu-west-1, which
 would have hit the production secondary region.
 
 **How to apply:** Before any deploy command, verify the target region
@@ -135,7 +135,7 @@ tiers:
 
 ## Step 5: Test It
 
-Start a new Claude Code session. You should see:
+Start a new AI agent session. You should see:
 
 ```
 STARTUP: X OK, Y FAIL
@@ -143,7 +143,7 @@ Tier 1: 2 files (N lines)
 ACTION REQUIRED: Read manifest, then read all Tier 1 files.
 ```
 
-Claude now loads your rules at the start of every session.
+the agent now loads your rules at the start of every session.
 
 ---
 
@@ -151,7 +151,7 @@ Claude now loads your rules at the start of every session.
 
 After your initial 5 rules, the system grows organically:
 
-1. **Claude makes a mistake** → you correct it
+1. **the agent makes a mistake** → you correct it
 2. **Write the correction as a rule** → add to `rules/core-rules.md`
 3. **Ask: should this be tier1 or tier2?**
    - Tier 1 if it applies to most sessions (coding standards, project facts)

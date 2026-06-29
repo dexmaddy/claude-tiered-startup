@@ -15,7 +15,7 @@ a manifest and tier1 files from a YAML config.
 
 ## What You'll Build
 
-By the end of this module, your Claude Code sessions will:
+By the end of this module, your AI agent sessions will:
 1. Run infrastructure checks at startup
 2. Generate tier1 rule files in a temp directory
 3. Print a manifest telling Claude exactly what to read
@@ -121,7 +121,7 @@ before responding to any user message.
 
 ## Step 5: Test It (3 minutes)
 
-Start a new Claude Code session. You should see output like:
+Start a new AI agent session. You should see output like:
 
 ```
 STARTUP: 1 OK, 0 FAIL
@@ -132,7 +132,7 @@ ACTION REQUIRED: Read manifest, then read all Tier 1 files.
   - /tmp/tier1-infra-report-abc123.md (3 lines, infra-report)
 ```
 
-**Verify:** Ask Claude "what are the project rules?" — it should
+**Verify:** Ask the agent "what are the project rules?" — it should
 reference the rules from your core-rules.md file.
 
 ---
@@ -141,10 +141,10 @@ reference the rules from your core-rules.md file.
 
 ### "startup-config.yaml not found"
 The hook walks up from the current directory looking for the config.
-Make sure it's in your project root (where you run Claude Code from).
+Make sure it's in your project root (where you run AI coding agents from).
 
 ### "PyYAML not installed"
-Run `pip install pyyaml` in the same Python environment that Claude Code uses.
+Run `pip install pyyaml` in the same Python environment that AI coding agents uses.
 Check with: `python3 -c "import yaml; print('ok')"`
 
 ### "FAIL" on a check
@@ -154,7 +154,7 @@ For `git-clean` failures, commit your outstanding changes first.
 ### Hook doesn't run
 - Verify `.claude/settings.json` is valid JSON (use `python3 -m json.tool`)
 - Check that the command path is correct: `python3 .claude/hooks/on_session_start.py`
-- Restart Claude Code after changing settings (hooks are loaded at launch)
+- Restart AI coding agents after changing settings (hooks are loaded at launch)
 
 ---
 
@@ -178,9 +178,9 @@ At every session start:
 2. Runs infrastructure checks
 3. Copies rule files to temp (session-scoped)
 4. Writes manifest telling Claude what to read
-5. Claude reads the files and has your rules in context
+5. the agent reads the files and has your rules in context
 
-**Limitation:** Claude can still ignore the manifest and start working
+**Limitation:** the agent can still ignore the manifest and start working
 without reading the files. Module 4 fixes this with structural gates.
 
 ---
@@ -191,7 +191,7 @@ Before moving on, verify:
 - [ ] Starting a new session shows the STARTUP output
 - [ ] The manifest lists your tier1 files with correct line counts
 - [ ] Your infrastructure checks show OK or expected FAILs
-- [ ] Claude can answer questions about your project rules
+- [ ] the agent can answer questions about your project rules
 
 ---
 

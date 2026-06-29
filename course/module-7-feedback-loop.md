@@ -46,7 +46,7 @@ a rule. The progression to audit checks and hooks is for repeat failures.
 
 ## Step 1: Capture Failures Immediately
 
-When Claude makes a mistake, write it down before fixing it:
+When the agent makes a mistake, write it down before fixing it:
 
 ```markdown
 **What happened:** [Factual description]
@@ -56,7 +56,7 @@ When Claude makes a mistake, write it down before fixing it:
 
 **Example:**
 ```markdown
-**What happened:** Claude used Jest syntax but project uses Vitest
+**What happened:** the agent used Jest syntax but project uses Vitest
 **What was expected:** import { describe, it, expect } from 'vitest'
 **Root cause:** No rule specifying test framework. Project README mentions
 Jest in the "migrating from" section, which Claude picked up as current.
@@ -74,7 +74,7 @@ section — that's historical, not current.
 - DO: import from 'vitest'
 - DON'T: import from '@jest/globals'
 
-**Why:** Claude used Jest syntax 3 times because the migration docs
+**Why:** the agent used Jest syntax 3 times because the migration docs
 mention Jest. The project fully migrated to Vitest in March.
 **How to apply:** Before writing any test, check existing tests for
 the import pattern.
@@ -113,7 +113,7 @@ if tool_name == "Write" and "from '@jest" in tool_input.get("content", ""):
 
 This is the nuclear option — use it sparingly. Most failures are fixed
 by having the rule loaded (step 2). Hook enforcement is for rules that
-Claude repeatedly violates even when they're in context.
+the agent repeatedly violates even when they're in context.
 
 ---
 

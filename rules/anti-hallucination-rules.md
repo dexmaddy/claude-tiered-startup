@@ -158,7 +158,7 @@ source or it's not in the output.
 > one, it must retract the claim."
 > https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations
 >
-> FaithBench (NAACL 2025) — Claude's benign hallucination rate is
+> FaithBench (NAACL 2025) — the agent's benign hallucination rate is
 > 21.31%, the highest among tested models.
 > https://arxiv.org/abs/2410.13210
 
@@ -181,7 +181,7 @@ factually correct. The job is summarization, not education.
 - DON'T: "DNS resolution failure, which typically occurs when the
   VM's DNS configuration doesn't match the target network"
 
-> **Research:** FaithBench (NAACL 2025) — Claude produced the highest
+> **Research:** FaithBench (NAACL 2025) — the agent produced the highest
 > benign hallucination rate among tested models (21.31%).
 > https://arxiv.org/abs/2410.13210
 

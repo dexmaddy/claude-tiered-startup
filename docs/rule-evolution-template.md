@@ -59,8 +59,8 @@ Ask "why" until you hit the structural cause:
 
 ```
 Why was the path wrong?
-  → Claude used a common default path instead of the project's actual path.
-Why did Claude use a default?
+  → the agent used a common default path instead of the project's actual path.
+Why did the agent use a default?
   → The actual path wasn't in any loaded context.
 Why wasn't it in context?
   → No rule file lists project-specific paths.
@@ -78,7 +78,7 @@ The /etc/app/ path is a common convention but this project uses /opt/app/.
 - DO: reference /opt/app/config.yaml
 - DON'T: reference /etc/app/config.yaml (does not exist)
 
-**Why:** Claude used the conventional /etc/ path in a generated summary,
+**Why:** the agent used the conventional /etc/ path in a generated summary,
 causing a deployment failure. The project has always used /opt/app/.
 
 **How to apply:** When referencing any config file, verify the path
@@ -123,7 +123,7 @@ if tool_name in ("Write", "Edit"):
 ### Example A: Missing Context → Tier 1 Rule
 
 ```
-Failure:  Claude used Python 3.9 syntax but project requires 3.12+
+Failure:  the agent used Python 3.9 syntax but project requires 3.12+
 Learning: Project Python version not in any loaded file
 Rule:     "This project uses Python 3.12+. Use match/case, f-strings,
            type unions (X | Y), and other 3.12 features freely."
@@ -135,7 +135,7 @@ Hook:     None needed — rule is sufficient
 ### Example B: Repeated Mistake → Tier 2 with Trigger
 
 ```
-Failure:  Claude ran "npm test" but project uses "pnpm test"
+Failure:  The agent ran "npm test" but project uses "pnpm test"
 Learning: Package manager confusion only happens during test/build tasks
 Rule:     "This project uses pnpm, not npm. All commands: pnpm install,
            pnpm test, pnpm build, pnpm dev."
@@ -148,7 +148,7 @@ Hook:     Tier 2 trigger: ["test", "build", "install", "dev", "pnpm", "npm"]
 ### Example C: Critical Mistake → Full Hook Enforcement
 
 ```
-Failure:  Claude ran "git push --force" on main branch
+Failure:  The agent ran "git push --force" on main branch
 Learning: Force-push to main should never happen from automation
 Rule:     "Never force-push to main or production branches."
 Check:    command: "git branch --show-current"
@@ -163,7 +163,7 @@ Hook:     PreToolUse gate in gate_check.py:
 
 ```
 Failure:  Summary said "migration completed successfully" but source said
-          "migration started" — Claude inferred completion from starting
+          "migration started" — the agent inferred completion from starting
 Learning: LLMs infer outcomes from actions (started → completed)
 Rule:     R30 — No interpretive commentary. Report what the source says,
           not what likely happened next.
@@ -191,7 +191,7 @@ If two rules address the same root cause, merge them. Five rules saying
 ### The 80/20 Split
 Most projects need ~5-10 tier1 rules and ~10-20 tier2 rules. If you have
 50+ rules in tier1, you're probably including things that should be tier2
-or that Claude already knows from the codebase itself.
+or that the agent already knows from the codebase itself.
 
 **Rules should capture what ISN'T in the code:**
 - Project conventions that aren't enforced by linters

@@ -403,7 +403,8 @@ agentic-ai-tiered-startup/
 ├── config.example.yaml                # Template config — copy and customize
 ├── settings.example.json              # Full hook configuration
 ├── hooks/
-│   ├── on_session_start.py            # SessionStart: config → manifest + tier files
+│   ├── on_session_start.py            # Method A: YAML config → manifest + tier files
+│   ├── on_session_start_db.py         # Method B: SQLite DB → manifest + tier files
 │   ├── gate_check.py                  # PreToolUse: enforce tier loading
 │   ├── on_prompt_submit.py            # UserPromptSubmit: startup gate + health warnings
 │   ├── on_stop.py                     # Stop: shutdown checks with retry
@@ -493,10 +494,28 @@ Claude Code's hooks API, but the patterns adapt to any platform with lifecycle e
 3. **After each modification:** sync state, check for drift
 4. **Before session end:** verify cleanup
 
+## Two Deployment Methods
+
+| | Method A: YAML Config | Method B: SQLite Database |
+|---|---|---|
+| **Script** | `on_session_start.py` | `on_session_start_db.py` |
+| **Rules stored in** | Markdown files on disk | `rules` table in SQLite |
+| **Backlog** | `backlog.json` | `backlog` table |
+| **Session handoff** | JSON file | `session_summaries` table |
+| **Config** | `startup-config.yaml` | `config` table |
+| **Dependencies** | PyYAML | None (sqlite3 is Python stdlib) |
+| **Best for** | Under ~50 rules, single user | 50+ rules, cross-referencing, concurrent sessions |
+| **Setup** | Copy config, write markdown files | `python3 hooks/on_session_start_db.py --init-db project.db` |
+
+Start with Method A. Graduate to Method B when you hit the
+[pain signals](docs/session-continuity.md#why-sqlite-over-json) described
+in the data source guide.
+
 ## Requirements
 
 - Python 3.10+
-- PyYAML (`pip install pyyaml`)
+- Method A: PyYAML (`pip install pyyaml`)
+- Method B: No extra dependencies (sqlite3 is in Python stdlib)
 - An AI coding agent with hook/middleware support (Claude Code, Cursor, Windsurf, Aider, or custom)
 
 ## License

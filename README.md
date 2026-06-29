@@ -371,7 +371,10 @@ Or reference them directly in your LLM prompts when generating summaries.
 
 ## Getting Started
 
-New to this? Start here:
+**New to this?** Take the **[Mini Course](course/README.md)** — 8 modules, ~2.5 hours,
+builds a complete working system for your project step by step.
+
+**Want to jump in?** Use these references:
 
 1. **[Bootstrapping Guide](docs/bootstrapping-guide.md)** — create your first 5 rules
    in 15 minutes, with starter kits for web apps, data pipelines, and infrastructure
@@ -402,6 +405,16 @@ claude-tiered-startup/
 ├── docs/
 │   ├── bootstrapping-guide.md         # Create your first 5 rules in 15 min
 │   └── rule-evolution-template.md     # Failure → learning → rule → hook pattern
+├── course/                            # 8-module mini course (~2.5 hours)
+│   ├── README.md                      # Course index and self-assessment
+│   ├── module-1-the-problem.md        # Why unmanaged sessions fail
+│   ├── module-2-architecture.md       # The 4-hook system explained
+│   ├── module-3-first-hook.md         # Hands-on: build Level 1
+│   ├── module-4-gates.md              # Hands-on: add structural enforcement
+│   ├── module-5-advanced.md           # Tier 2, drift detection, stop hook
+│   ├── module-6-anti-hallucination.md # 14 research-backed rules
+│   ├── module-7-feedback-loop.md      # Failure → rule → enforcement pipeline
+│   └── module-8-capstone.md           # Wire it all together for your project
 ├── tests/
 │   └── smoke_test.py                  # Verify full hook chain works (18 checks)
 ├── examples/

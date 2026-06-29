@@ -1,3 +1,9 @@
+---
+layout: default
+title: Bootstrapping Guide
+nav_order: 3
+---
+
 # Bootstrapping Guide: Your First 5 Rules
 
 This guide walks you through creating your first tier1 rules file — the

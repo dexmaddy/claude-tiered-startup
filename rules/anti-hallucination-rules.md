@@ -1,3 +1,9 @@
+---
+layout: default
+title: Anti-Hallucination Rules
+nav_order: 5
+---
+
 # Anti-Hallucination Rules for LLM-Generated Summaries
 
 A research-backed framework of 14 cognitive/process rules that reduce

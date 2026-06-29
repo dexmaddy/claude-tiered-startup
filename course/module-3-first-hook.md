@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Module 3: Your First Startup Hook"
+parent: Course
+nav_order: 3
+---
+
 # Module 3: Your First Startup Hook
 
 **Time:** 20 minutes

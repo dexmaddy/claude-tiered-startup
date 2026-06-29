@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Module 5: Advanced Features"
+parent: Course
+nav_order: 5
+---
+
 # Module 5: On-Demand Loading & Drift Detection
 
 **Time:** 20 minutes

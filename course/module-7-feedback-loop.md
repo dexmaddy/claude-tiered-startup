@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Module 7: The Feedback Loop"
+parent: Course
+nav_order: 7
+---
+
 # Module 7: The Feedback Loop
 
 **Time:** 15 minutes

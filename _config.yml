@@ -1,0 +1,24 @@
+title: Tiered Startup Architecture
+description: A hook-based system for reliable Claude Code sessions
+baseurl: "/claude-tiered-startup"
+url: "https://***.gitlab.io"
+
+theme: just-the-docs
+
+nav_order_default: 0
+nav_enabled: true
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - hooks/
+  - tests/
+  - examples/
+  - .gitlab-ci.yml
+  - LICENSE
+
+defaults:
+  - scope:
+      path: "course"
+    values:
+      parent: "Course"

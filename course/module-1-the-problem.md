@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Module 1: The Problem"
+parent: Course
+nav_order: 1
+---
+
 # Module 1: The Problem
 
 **Time:** 10 minutes

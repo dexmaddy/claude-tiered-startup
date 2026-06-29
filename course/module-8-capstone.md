@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Module 8: Capstone"
+parent: Course
+nav_order: 8
+---
+
 # Module 8: Capstone — Wire It All Together
 
 **Time:** 30 minutes

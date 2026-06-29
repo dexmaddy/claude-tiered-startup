@@ -343,13 +343,13 @@ of sessions:
 
 8. **More reasoning = worse faithfulness.** Giving the LLM more thinking
    time makes summaries *less* faithful to sources (r = -0.685). Use
-   reasoning for verification, never for generation. See `rules/anti-hallucination-rules.md`.
+   reasoning for verification, never for generation. See `docs/rules/anti-hallucination-rules.md`.
 
 ---
 
 ## Anti-Hallucination Rules
 
-The `rules/` directory includes a research-backed framework of 14 cognitive
+The `docs/rules/` directory includes a research-backed framework of 14 cognitive
 rules for reducing hallucination in LLM-generated summaries. These are
 generic — they apply to any summarization task, not just one domain.
 
@@ -357,14 +357,14 @@ The rules are organized into 5 phases (READ → WRITE → VERIFY PASS 1 →
 VERIFY PASS 2 → SIGN-OFF) because LLMs skip rules in the middle of flat
 lists (U-shaped attention bias). Each rule cites peer-reviewed research.
 
-To use them, include `rules/anti-hallucination-rules.md` as a Tier 1 file
+To use them, include `docs/rules/anti-hallucination-rules.md` as a Tier 1 file
 in your config:
 
 ```yaml
 tiers:
   tier1:
     - name: ah-rules
-      source: rules/anti-hallucination-rules.md
+      source: docs/rules/anti-hallucination-rules.md
       description: "Anti-hallucination rules for faithful summaries"
 ```
 
@@ -405,14 +405,14 @@ sample rules, and wires everything together for your chosen platform.
 
 ### Learn the Concepts
 
-**Take the [Mini Course](course/README.md)** — 8 modules, ~2.5 hours,
+**Take the [Mini Course](docs/course/README.md)** — 8 modules, ~2.5 hours,
 builds a complete working system for your project step by step.
 
 **Reference docs:**
 
-1. **[Bootstrapping Guide](docs/bootstrapping-guide.md)** — create your first 5 rules
+1. **[Bootstrapping Guide](docs/reference/bootstrapping-guide.md)** — create your first 5 rules
    in 15 minutes, with starter kits for web apps, data pipelines, and infrastructure
-2. **[Rule Evolution Template](docs/rule-evolution-template.md)** — the pattern for
+2. **[Rule Evolution Template](docs/reference/rule-evolution-template.md)** — the pattern for
    turning failures into structural enforcement: failure → learning → rule → audit → hook
 3. **[Smoke Test](tests/smoke_test.py)** — verify your setup works end-to-end:
    `python3 tests/smoke_test.py --verbose`
@@ -423,39 +423,36 @@ builds a complete working system for your project step by step.
 
 ```
 agentic-ai-tiered-startup/
-├── setup.py                           # Interactive setup wizard
-├── README.md                          # This guide
-├── config.example.yaml                # Template config — copy and customize
-├── settings.example.json              # Full hook configuration
-├── hooks/
-│   ├── on_session_start.py            # Method A: YAML config → manifest + tier files
-│   ├── on_session_start_db.py         # Method B: SQLite DB → manifest + tier files
-│   ├── gate_check.py                  # PreToolUse: enforce tier loading
-│   ├── on_prompt_submit.py            # UserPromptSubmit: startup gate + health warnings
-│   ├── on_stop.py                     # Stop: shutdown checks with retry
-│   ├── on_edit.py                     # PostToolUse: post-write actions (sync, reminders)
-│   ├── cross_check.py                 # Drift detection: expected vs actual state
-│   └── validators.py                  # Output-based check validators
-├── rules/
-│   └── anti-hallucination-rules.md    # 14 research-backed anti-hallucination rules
-├── docs/
-│   ├── bootstrapping-guide.md         # Create your first 5 rules in 15 min
-│   ├── rule-evolution-template.md     # Failure → learning → rule → hook pattern
-│   └── session-continuity.md          # Persistent backlog + session handoff (JSON & SQLite)
-├── course/                            # 8-module mini course (~2.5 hours)
-│   ├── README.md                      # Course index and self-assessment
-│   ├── module-1-the-problem.md        # Why unmanaged sessions fail
-│   ├── module-2-architecture.md       # The 4-hook system explained
-│   ├── module-3-first-hook.md         # Hands-on: build Level 1
-│   ├── module-4-gates.md              # Hands-on: add structural enforcement
-│   ├── module-5-advanced.md           # Tier 2, drift detection, stop hook
-│   ├── module-6-anti-hallucination.md # 14 research-backed rules
-│   ├── module-7-feedback-loop.md      # Failure → rule → enforcement pipeline
-│   └── module-8-capstone.md           # Wire it all together for your project
-├── slides/
-│   ├── Structural_AI_Agent_Enforcement.pdf   # 10-slide visual companion (PDF)
+├── setup.py                              # Interactive setup wizard
+├── README.md                             # This guide
+├── mkdocs.yml                            # Website config (MkDocs Material)
+├── config.example.yaml                   # Template config
+├── settings.example.json                 # Hook configuration template
+├── hooks/                                # Hook scripts (copy to your project)
+│   ├── on_session_start.py               # Method A: YAML → manifest
+│   ├── on_session_start_db.py            # Method B: SQLite → manifest
+│   ├── gate_check.py                     # PreToolUse gate
+│   ├── on_prompt_submit.py               # UserPromptSubmit gate
+│   ├── on_stop.py                        # Stop hook with retries
+│   ├── on_edit.py                        # PostToolUse actions
+│   ├── cross_check.py                    # Drift detection
+│   └── validators.py                     # Output-based validators
+├── docs/                                 # Website content
+│   ├── index.md                          # Home page
+│   ├── course/                           # 8-module mini course
+│   │   ├── README.md                     # Course overview
+│   │   └── module-1 through module-8     # Course modules
+│   ├── reference/                        # Guides and templates
+│   │   ├── setup-wizard.md               # Wizard docs
+│   │   ├── bootstrapping-guide.md        # First 5 rules
+│   │   ├── rule-evolution-template.md    # Failure → rule → hook
+│   │   └── session-continuity.md         # Persistent backlog
+│   └── rules/                            # Reusable rule frameworks
+│       └── anti-hallucination-rules.md   # 14 research-backed rules
+├── slides/                               # Visual companion
+│   └── Structural_AI_Agent_Enforcement.pdf
 ├── tests/
-│   └── smoke_test.py                  # Verify full hook chain works (18 checks)
+│   └── smoke_test.py                     # 18-check verification
 ├── examples/
 │   ├── level-1-minimal/settings.json  # Just SessionStart
 │   ├── level-2-gated/settings.json    # + PreToolUse + UserPromptSubmit

@@ -1,7 +1,7 @@
 title: Tiered Startup Architecture
-description: A hook-based system for reliable Claude Code sessions
+description: A hook-based system for reliable AI agent sessions
 baseurl: "/claude-tiered-startup"
-url: "https://gitlab.io"
+url: "https://dexmaddy.github.io"
 
 theme: just-the-docs
 
@@ -14,7 +14,7 @@ exclude:
   - hooks/
   - tests/
   - examples/
-  - .gitlab-ci.yml
+  - .github/
   - LICENSE
 
 defaults:

@@ -21,11 +21,11 @@ theme:
     - navigation.instant
     - navigation.instant.progress
     - navigation.tracking
-    - navigation.tabs
     - navigation.sections
     - navigation.expand
     - navigation.top
-    - toc.follow
+    - navigation.indexes
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.code.copy

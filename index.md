@@ -388,10 +388,31 @@ Use these alongside the course or as a standalone overview for your team.
 
 ## Getting Started
 
-**New to this?** Take the **[Mini Course](course/README.md)** — 8 modules, ~2.5 hours,
+### Quick Setup (2 minutes)
+
+Clone the repo and run the interactive wizard:
+
+```bash
+git clone https://github.com/dexmaddy/agentic-ai-tiered-startup.git
+cd agentic-ai-tiered-startup
+python3 setup.py
+```
+
+The wizard walks you through:
+1. **Platform** — Claude Code, Cursor, Windsurf, Aider, or custom agent
+2. **Data store** — YAML/JSON files, SQLite, or PostgreSQL
+3. **Level** — how much enforcement you want (1-4)
+4. **Project details** — anti-hallucination rules, persistent backlog
+
+It generates all config files, copies the right hook scripts, creates
+sample rules, and wires everything together for your chosen platform.
+
+### Learn the Concepts
+
+**Take the [Mini Course](course/README.md)** — 8 modules, ~2.5 hours,
 builds a complete working system for your project step by step.
 
-**Want to jump in?** Use these references:
+**Reference docs:**
 
 1. **[Bootstrapping Guide](docs/bootstrapping-guide.md)** — create your first 5 rules
    in 15 minutes, with starter kits for web apps, data pipelines, and infrastructure
@@ -406,6 +427,7 @@ builds a complete working system for your project step by step.
 
 ```
 agentic-ai-tiered-startup/
+├── setup.py                           # Interactive setup wizard
 ├── README.md                          # This guide
 ├── config.example.yaml                # Template config — copy and customize
 ├── settings.example.json              # Full hook configuration

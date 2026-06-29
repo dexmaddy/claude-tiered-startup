@@ -70,3 +70,22 @@ These require three additional tables in your database:
 
 No extra configuration is needed — setting `AGENT_DB_PATH` to your database
 file path enables all three features automatically.
+
+## Level 4 Stop Hook Config
+
+At Level 4, the wizard generates a stop hook config with these options:
+
+```yaml
+stop:
+  require_clean_repos: true
+  require_audit_pass: true
+  require_session_summary: true     # DB mode only
+  shutdown_steps:                   # custom checks (same validators as startup)
+    - name: lint-clean
+      command: "npm run lint 2>&1 | tail -1"
+      validator: "contains:no errors"
+      fail_message: "Linter has errors"
+```
+
+`shutdown_steps` uses the same validator framework as startup checks.
+`require_session_summary` only applies when `AGENT_DB_PATH` is set.

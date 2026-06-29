@@ -236,6 +236,11 @@ Run through each item and confirm:
 - [ ] `python3 hooks/audit.py --verbose` runs clean
 - [ ] Stop hook has `require_audit_pass: true` (optional but recommended)
 
+### Stop Hook Extras
+- [ ] `shutdown_steps` configured for project-specific exit checks (linting, formatting, etc.)
+- [ ] DB mode: `require_session_summary: true` ensures learnings are captured each session
+- [ ] DB mode: edit logging active (`AGENT_DB_PATH` set, `rule_log` table populated)
+
 ---
 
 ## What's Next

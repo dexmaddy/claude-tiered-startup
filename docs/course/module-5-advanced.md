@@ -112,6 +112,10 @@ pattern: it scans edited files for keyword overlap with consolidated
 files and warns if content appears scattered. Customize it to add file
 sync or other post-write actions.
 
+**DB mode:** When `AGENT_DB_PATH` is set, every edit is also logged to
+the `rule_log` table — enabling session activity reports and edit count
+tracking at shutdown.
+
 ---
 
 ## Part D: Stop Hook
@@ -149,6 +153,9 @@ stop:
 `shutdown_steps` uses the same validator registry as startup checks
 (`empty_output`, `contains:text`, `equals:text`, `regex:pattern`).
 Each step runs before exit; failures trigger retry (exit code 2).
+
+**DB mode:** Add `require_session_summary: true` to require a
+`session_summaries` row before exit — ensures session learnings are captured.
 
 Wire in settings:
 

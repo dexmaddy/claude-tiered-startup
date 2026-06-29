@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Git pre-commit hook: block commits containing sensitive data.
+
+Loads patterns from tests/sensitive-patterns.txt (gitignored, local only).
+Scans all staged file content AND the commit message for matches.
+Blocks the commit if any pattern is found.
+
+Install: cp hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+Or use the setup wizard which does this automatically.
+"""
+from __future__ import annotations
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+def find_repo_root() -> Path:
+    result = subprocess.run(["git", "rev-parse", "--show-toplevel"],
+                           capture_output=True, text=True)
+    if result.returncode == 0:
+        return Path(result.stdout.strip())
+    return Path(__file__).resolve().parent.parent
+
+REPO = find_repo_root()
+PATTERNS_FILE = REPO / "tests" / "sensitive-patterns.txt"
+
+
+def load_patterns() -> list[re.Pattern]:
+    if not PATTERNS_FILE.exists():
+        return []
+    patterns = []
+    for line in PATTERNS_FILE.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            try:
+                patterns.append(re.compile(line, re.IGNORECASE))
+            except re.error:
+                print(f"WARNING: invalid regex in sensitive-patterns.txt: {line}")
+    return patterns
+
+
+def get_staged_files() -> list[str]:
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
+        capture_output=True, text=True
+    )
+    return [f.strip() for f in result.stdout.splitlines() if f.strip()]
+
+
+def get_staged_content(filepath: str) -> str:
+    result = subprocess.run(
+        ["git", "show", f":{filepath}"],
+        capture_output=True, text=True
+    )
+    return result.stdout if result.returncode == 0 else ""
+
+
+def main() -> int:
+    patterns = load_patterns()
+    if not patterns:
+        return 0
+
+    files = get_staged_files()
+    violations = []
+
+    for filepath in files:
+        # Skip binary files
+        if any(filepath.endswith(ext) for ext in (".png", ".jpg", ".ico", ".woff", ".woff2", ".ttf", ".db")):
+            continue
+        content = get_staged_content(filepath)
+        for i, line in enumerate(content.splitlines(), 1):
+            for pattern in patterns:
+                if pattern.search(line):
+                    violations.append(f"  {filepath}:{i} matches /{pattern.pattern}/")
+
+    if violations:
+        print("BLOCKED: Sensitive data detected in staged files:\n")
+        for v in violations[:20]:
+            print(v)
+        if len(violations) > 20:
+            print(f"  ... and {len(violations) - 20} more")
+        print(f"\nPatterns loaded from: {PATTERNS_FILE}")
+        print("Fix the files or update sensitive-patterns.txt, then retry.")
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -29,6 +29,8 @@ theme:
     - search.highlight
     - content.code.copy
     - content.tabs.link
+  logo: assets/logo.png
+  favicon: assets/favicon.png
   icon:
     repo: fontawesome/brands/github
     admonition:

@@ -137,6 +137,7 @@ Add to config:
 stop:
   require_clean_repos: true
   require_transcript: false
+  require_audit_pass: true    # run audit checks before exit
   max_retries: 8
 ```
 
@@ -198,10 +199,13 @@ Every tool call → PreToolUse hook
        │
 Every Write/Edit → PostToolUse hook
   → Save reminders
+  → Rule Zero enforcement (scattered content detection)
   → File sync (if configured)
        │
 Session end → Stop hook
   → Blocks until repos clean
+  → Runs audit checks (if require_audit_pass)
+  → Self-verification enforcement
   → Retries up to N times
 ```
 

@@ -77,6 +77,8 @@ gates:
 stop:
   require_clean_repos: true                 # block exit until git repos are clean
   require_transcript: false                 # block exit until transcript saved
+  require_audit_pass: false                 # run audit checks before exit (Level 4)
+  # audit_checks_path: checks/audit-checks.yaml  # custom path (default: auto-detected)
   max_retries: 8                            # how many times to retry before force-exit
 
 # --- Cross-Check (Level 3) ---

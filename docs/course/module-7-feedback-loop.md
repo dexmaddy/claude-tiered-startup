@@ -209,9 +209,10 @@ Read them after completing the basics above:
 
 2. **[Self-Healing Loop](../reference/self-healing-loop.md)** — the
    bidirectional flow where rules feed audit checks AND audit checks
-   feed rules. Structurally enforced: `cross_check.py` now generates
-   `write_back_suggestions` for persistent drift, proposing manifest
-   updates or flagging items for investigation.
+   feed rules. Structurally enforced: `cross_check.py` generates
+   `write_back_suggestions` for persistent drift, and the standalone
+   [Audit Runner](../reference/audit-runner.md) (`audit.py`) provides
+   on-demand check execution integrated with the stop hook.
 
 3. **[Self-Verification](../reference/self-verification.md)** — the
    4-point check that proves work is actually done, not just narrated

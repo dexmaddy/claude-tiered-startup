@@ -436,7 +436,10 @@ agentic-ai-tiered-startup/
 │   ├── on_stop.py                        # Stop hook with retries
 │   ├── on_edit.py                        # PostToolUse actions
 │   ├── cross_check.py                    # Drift detection
+│   ├── audit.py                          # Standalone audit runner
 │   └── validators.py                     # Output-based validators
+├── checks/                               # Sample audit check library
+│   └── audit-checks.yaml                 # 10 generic checks
 ├── docs/                                 # Website content
 │   ├── index.md                          # Home page
 │   ├── course/                           # 8-module mini course
@@ -449,6 +452,7 @@ agentic-ai-tiered-startup/
 │   │   ├── rule-zero.md                  # Every edit triggers categorization
 │   │   ├── self-healing-loop.md          # Bidirectional rule-audit feedback
 │   │   ├── self-verification.md          # 4-point completion check
+│   │   ├── audit-runner.md               # On-demand audit checks
 │   │   └── session-continuity.md         # Persistent backlog
 │   └── rules/                            # Reusable rule frameworks
 │       └── anti-hallucination-rules.md   # 14 research-backed rules

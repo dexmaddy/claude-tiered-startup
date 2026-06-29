@@ -231,6 +231,11 @@ Run through each item and confirm:
 - [ ] on_edit hook scans for scattered content across consolidated files
 - [ ] At least one rule triggered a corresponding audit check
 
+### Audit Runner ([on-demand checks](../reference/audit-runner.md))
+- [ ] `checks/audit-checks.yaml` customized for your project
+- [ ] `python3 hooks/audit.py --verbose` runs clean
+- [ ] Stop hook has `require_audit_pass: true` (optional but recommended)
+
 ---
 
 ## What's Next

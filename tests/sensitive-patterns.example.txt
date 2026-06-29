@@ -5,8 +5,5 @@
 # Examples:
 your-username
 your-email@example\.com
-/mnt/data/
-project-data
-internal-project-name
-\.internal\.corp\.com
-your-company\.com
+your-internal-domain\.com
+your-project-name

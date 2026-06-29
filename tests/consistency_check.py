@@ -257,7 +257,7 @@ def check_sensitive():
     else:
         # Generic examples — replace with your own patterns
         patterns = [
-            r'your-username', r'/mnt/data/', r'project-data',
+            r'your-username', r'your-internal-domain\.com',
         ]
     regex = re.compile("|".join(patterns), re.IGNORECASE)
     found = []

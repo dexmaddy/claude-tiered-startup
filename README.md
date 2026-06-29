@@ -414,7 +414,8 @@ agentic-ai-tiered-startup/
 │   └── anti-hallucination-rules.md    # 14 research-backed anti-hallucination rules
 ├── docs/
 │   ├── bootstrapping-guide.md         # Create your first 5 rules in 15 min
-│   └── rule-evolution-template.md     # Failure → learning → rule → hook pattern
+│   ├── rule-evolution-template.md     # Failure → learning → rule → hook pattern
+│   └── session-continuity.md          # Persistent backlog + session handoff (JSON & SQLite)
 ├── course/                            # 8-module mini course (~2.5 hours)
 │   ├── README.md                      # Course index and self-assessment
 │   ├── module-1-the-problem.md        # Why unmanaged sessions fail

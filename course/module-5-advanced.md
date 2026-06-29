@@ -277,12 +277,38 @@ Session end → Stop hook
 
 ---
 
+## Part E: Session Continuity
+
+Agent sessions are ephemeral — tasks, progress, and "what's next"
+vanish when the session ends. Session continuity solves this with
+two features:
+
+1. **Persistent Backlog** — todos stored in a file or database that
+   survives across sessions, loaded into Tier 1 at startup
+2. **Session Handoff** — each session records what was done and what's
+   next, so the following session picks up where the last one left off
+
+**Why this matters:** Without continuity, users re-explain context
+every session. With it, the agent says "Last session worked on auth
+refactor. Next items: fix flaky test, update docs" — and starts working.
+
+Two implementation methods:
+- **JSON file** — simple, zero dependencies, good for under ~20 tasks
+- **SQLite** — queryable, handles concurrency, tracks history
+
+See the full **[Session Continuity Guide](../docs/session-continuity.md)**
+for setup instructions, code examples for both methods, and stop hook
+integration for automatic session handoff.
+
+---
+
 ## Checkpoint
 
 - [ ] Tier 2 triggers fire when keywords appear in commands
 - [ ] Cross-check runs after tier1 completes (check sentinel for `cross_check_done: true`)
 - [ ] Save reminder appears after 15 edits
 - [ ] Stop hook blocks exit when repos are dirty
+- [ ] Backlog loads in tier1 at session start (JSON or SQLite method)
 
 ---
 

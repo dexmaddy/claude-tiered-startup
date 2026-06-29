@@ -245,12 +245,20 @@ def check_yaml():
 # ── 9. No sensitive data ─────────────────────────────────────────────
 def check_sensitive():
     section("9. SENSITIVE DATA SCAN")
-    patterns = [
-        r'***', r'gitlab\.com/***', r'/mnt/data/',
-        r'project-data', r'your-project', r'\.internal-crm\.',
-        r'example-crm\.com', r'your-company\.com', r'internal-api\.',
-        r'internal-product',
-    ]
+    # Load patterns from config file if available, otherwise use examples.
+    # Users should customize sensitive-patterns.txt with their own personal
+    # data, internal domains, and project-specific strings to scan for.
+    patterns_file = REPO / "tests" / "sensitive-patterns.txt"
+    if patterns_file.exists():
+        patterns = [
+            line.strip() for line in patterns_file.read_text().splitlines()
+            if line.strip() and not line.strip().startswith("#")
+        ]
+    else:
+        # Generic examples — replace with your own patterns
+        patterns = [
+            r'your-username', r'/mnt/data/', r'project-data',
+        ]
     regex = re.compile("|".join(patterns), re.IGNORECASE)
     found = []
     for ext in ("*.py", "*.md", "*.yaml", "*.yml", "*.json"):

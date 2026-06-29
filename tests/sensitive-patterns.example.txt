@@ -1,0 +1,12 @@
+# Sensitive data patterns — one regex per line.
+# Copy this file to sensitive-patterns.txt and customize with YOUR data.
+# sensitive-patterns.txt is gitignored so your personal patterns stay local.
+#
+# Examples:
+your-username
+your-email@example\.com
+/mnt/data/
+project-data
+internal-project-name
+\.internal\.corp\.com
+your-company\.com

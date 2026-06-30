@@ -1,0 +1,126 @@
+direction: right
+
+title: |md
+  # What the Tiered Startup Does For You
+| {
+  near: top-center
+  style: {
+    font-size: 24
+    bold: true
+  }
+}
+
+start: Session Start {
+  style: {
+    fill: "#e8f5e9"
+    stroke: "#2e7d32"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+
+  checks: Infrastructure Checks {
+    style: {fill: "#ffffff"; stroke: "#4caf50"; border-radius: 8}
+  }
+  tiers: Tiered Loading {
+    style: {fill: "#ffffff"; stroke: "#4caf50"; border-radius: 8}
+  }
+  state: Manifest + Sentinel {
+    style: {fill: "#ffffff"; stroke: "#4caf50"; border-radius: 8}
+  }
+}
+
+gate: Startup Gate {
+  style: {
+    fill: "#fff3e0"
+    stroke: "#ef6c00"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+
+  block: Tool Blocking {
+    style: {fill: "#ffffff"; stroke: "#ff9800"; border-radius: 8}
+  }
+  reset: Context Reset Detection {
+    style: {fill: "#ffffff"; stroke: "#ff9800"; border-radius: 8}
+  }
+  health: Prompt Health Warnings {
+    style: {fill: "#ffffff"; stroke: "#ff9800"; border-radius: 8}
+  }
+}
+
+work: During Work {
+  style: {
+    fill: "#e3f2fd"
+    stroke: "#1565c0"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+
+  rz: Rule Zero {
+    style: {fill: "#ffffff"; stroke: "#2196f3"; border-radius: 8}
+  }
+  drift: Drift Detection + Auto-Heal {
+    style: {fill: "#ffffff"; stroke: "#2196f3"; border-radius: 8}
+  }
+  t2: Tier 2 Keyword Triggers {
+    style: {fill: "#ffffff"; stroke: "#2196f3"; border-radius: 8}
+  }
+}
+
+stop: Session End {
+  style: {
+    fill: "#fce4ec"
+    stroke: "#c62828"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+
+  sv: Self-Verification {
+    style: {fill: "#ffffff"; stroke: "#f44336"; border-radius: 8}
+  }
+  clean: Clean Shutdown {
+    style: {fill: "#ffffff"; stroke: "#f44336"; border-radius: 8}
+  }
+  cont: Session Continuity {
+    style: {fill: "#ffffff"; stroke: "#f44336"; border-radius: 8}
+  }
+}
+
+start -> gate: rules loaded? {
+  style: {stroke: "#2e7d32"; stroke-width: 3}
+}
+gate -> work: tools unblocked {
+  style: {stroke: "#ef6c00"; stroke-width: 3}
+}
+work -> stop: session ending {
+  style: {stroke: "#1565c0"; stroke-width: 3}
+}
+
+cross: Applies Across All Phases {
+  style: {
+    fill: "#f3e5f5"
+    stroke: "#7b1fa2"
+    border-radius: 12
+    shadow: true
+    font-size: 14
+    bold: true
+  }
+
+  ah: Anti-Hallucination Rules (59) {
+    style: {fill: "#ffffff"; stroke: "#9c27b0"; border-radius: 8}
+  }
+  loop: Feedback Loop {
+    style: {fill: "#ffffff"; stroke: "#9c27b0"; border-radius: 8}
+  }
+  sec: Sensitive Data Prevention {
+    style: {fill: "#ffffff"; stroke: "#9c27b0"; border-radius: 8}
+  }
+}

@@ -1,0 +1,80 @@
+direction: right
+
+l1: Level 1\nManifest Only {
+  style: {
+    fill: "#e8f5e9"
+    stroke: "#2e7d32"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+  desc: |md
+    - SessionStart hook
+    - Infrastructure checks
+    - Tier 1 + Tier 2 files
+    - Voluntary compliance
+  | {style: {font-size: 13}}
+}
+
+l2: Level 2\n+ Gates {
+  style: {
+    fill: "#fff3e0"
+    stroke: "#ef6c00"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+  desc: |md
+    - PreToolUse blocking
+    - UserPromptSubmit gate
+    - Context health warnings
+    - Tools denied until loaded
+  | {style: {font-size: 13}}
+}
+
+l3: Level 3\n+ Drift Detection {
+  style: {
+    fill: "#e3f2fd"
+    stroke: "#1565c0"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+  desc: |md
+    - Tier 2 keyword triggers
+    - Cross-check expected vs actual
+    - Auto-heal safe items
+    - Write-back suggestions
+  | {style: {font-size: 13}}
+}
+
+l4: Level 4\nFull Architecture {
+  style: {
+    fill: "#f3e5f5"
+    stroke: "#7b1fa2"
+    border-radius: 12
+    shadow: true
+    font-size: 16
+    bold: true
+  }
+  desc: |md
+    - Rule Zero (on_edit.py)
+    - Self-Verification (on_stop.py)
+    - Audit runner
+    - Session continuity
+    - Sensitive data scanner
+  | {style: {font-size: 13}}
+}
+
+l1 -> l2: add gates {
+  style: {stroke: "#ef6c00"; stroke-width: 3}
+}
+l2 -> l3: add drift detection {
+  style: {stroke: "#1565c0"; stroke-width: 3}
+}
+l3 -> l4: add enforcement {
+  style: {stroke: "#7b1fa2"; stroke-width: 3}
+}

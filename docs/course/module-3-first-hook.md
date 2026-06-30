@@ -65,7 +65,7 @@ The default branch is "main". Never push directly — always use PRs.
 
 ```bash
 cd your-project/
-python3 path/to/agentic-ai-tiered-startup/setup.py
+python3 path/to/ai-agent-harness/setup.py
 ```
 
 The wizard asks your platform (Claude Code, Cursor, Windsurf, Aider, etc.),
@@ -76,8 +76,8 @@ For this module, choose **Level 1**.
 
 ```bash
 mkdir -p .agent/hooks
-cp path/to/agentic-ai-tiered-startup/hooks/on_session_start.py .agent/hooks/
-cp path/to/agentic-ai-tiered-startup/hooks/validators.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/on_session_start.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/validators.py .agent/hooks/
 pip install pyyaml
 ```
 

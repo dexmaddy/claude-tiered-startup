@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SessionStart hook (Database variant): read rules from SQLite or PostgreSQL.
 
-Method B of the Agentic AI Tiered Startup Architecture.
+Method B of the AI Agent Harness.
 Use this instead of on_session_start.py when your rules, backlog, and session
 state live in a database rather than YAML config files.
 
@@ -78,7 +78,7 @@ def _execute_schema(conn, schema_sql: str) -> None:
 
 
 def init_db(db_path: str) -> None:
-    """Create all tables for the tiered startup system."""
+    """Create all tables for the AI Agent Harness."""
     if _is_postgres(db_path):
         try:
             import psycopg2

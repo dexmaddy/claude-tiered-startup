@@ -5,8 +5,8 @@ The fastest way to get started. Run the interactive wizard and it handles everyt
 ## Quick Start
 
 ```bash
-git clone https://github.com/dexmaddy/agentic-ai-tiered-startup.git
-cd agentic-ai-tiered-startup
+git clone https://github.com/dexmaddy/ai-agent-harness.git
+cd ai-agent-harness
 python3 setup.py
 ```
 

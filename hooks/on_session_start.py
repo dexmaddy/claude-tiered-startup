@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SessionStart hook: read config, run checks, generate tier files, write manifest.
 
-Level 1 of the Agentic AI Tiered Startup Architecture.
+Level 1 of the AI Agent Harness.
 Reads startup-config.yaml, runs infrastructure checks with output-based validators,
 copies/generates tier1 files to temp, and writes a manifest for Claude to follow.
 """

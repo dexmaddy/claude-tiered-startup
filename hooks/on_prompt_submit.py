@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """UserPromptSubmit hook: startup gate + context reset detection + context health.
 
-Level 2 of the Agentic AI Tiered Startup Architecture.
+Level 2 of the AI Agent Harness.
 - Detects /clear (context reset) and invalidates sentinel to force re-startup.
 - If Tier 1 is not complete, injects a blocking message telling the agent to read files first.
 - After startup, tracks prompt count and warns at configurable thresholds.

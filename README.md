@@ -1,4 +1,4 @@
-# Agentic AI Tiered Startup Architecture
+# AI Agent Harness
 
 A progressive, hook-based system that ensures AI agent sessions start with
 the right context loaded, enforced structurally — not by hoping the agent reads
@@ -406,8 +406,8 @@ Use these alongside the course or as a standalone overview for your team.
 Clone the repo and run the interactive wizard:
 
 ```bash
-git clone https://github.com/dexmaddy/agentic-ai-tiered-startup.git
-cd agentic-ai-tiered-startup
+git clone https://github.com/dexmaddy/ai-agent-harness.git
+cd ai-agent-harness
 python3 setup.py
 ```
 
@@ -439,7 +439,7 @@ builds a complete working system for your project step by step.
 ## File Structure
 
 ```
-agentic-ai-tiered-startup/
+ai-agent-harness/
 ├── setup.py                              # Interactive setup wizard
 ├── README.md                             # This guide
 ├── mkdocs.yml                            # Website config (MkDocs Material)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cross-check drift detection: compare expected state vs actual.
 
-Level 3 of the Agentic AI Tiered Startup Architecture.
+Level 3 of the AI Agent Harness.
 Runs once per session after Tier 1 loads. Compares expected counts/values
 from the manifest against live checks, auto-heals safe items, logs the rest.
 

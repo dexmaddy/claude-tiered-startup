@@ -347,7 +347,7 @@ def test_audit_runner() -> None:
 
 
 def main() -> None:
-    log("SMOKE TEST — Agentic AI Tiered Startup Architecture")
+    log("SMOKE TEST — AI Agent Harness")
     log("=" * 50)
 
     test_validators()

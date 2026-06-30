@@ -1,6 +1,6 @@
-site_name: Agentic AI Tiered Startup Architecture
+site_name: AI Agent Harness
 site_description: A hook-based system for reliable AI agent sessions
-site_url: https://dexmaddy.github.io/agentic-ai-tiered-startup/
+site_url: https://dexmaddy.github.io/ai-agent-harness/
 
 theme:
   name: material
@@ -38,8 +38,8 @@ theme:
       tip: fontawesome/solid/lightbulb
       warning: fontawesome/solid/triangle-exclamation
 
-repo_url: https://github.com/dexmaddy/agentic-ai-tiered-startup
-repo_name: dexmaddy/agentic-ai-tiered-startup
+repo_url: https://github.com/dexmaddy/ai-agent-harness
+repo_name: dexmaddy/ai-agent-harness
 
 markdown_extensions:
   - pymdownx.superfences:

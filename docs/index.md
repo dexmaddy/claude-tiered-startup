@@ -1,4 +1,4 @@
-# Agentic AI Tiered Startup Architecture
+# AI Agent Harness
 
 A progressive, hook-based system that ensures AI agent sessions start with
 the right context loaded, enforced structurally — not by hoping the agent reads
@@ -74,7 +74,7 @@ your instructions carefully.
     Anti-hallucination rules, design patterns (Rule Zero, Self-Healing
     Loop, Self-Verification), and session continuity.
 
--   :fontawesome-brands-github:{ .lg .middle } **[Source Code](https://github.com/dexmaddy/agentic-ai-tiered-startup)**
+-   :fontawesome-brands-github:{ .lg .middle } **[Source Code](https://github.com/dexmaddy/ai-agent-harness)**
 
     ---
 

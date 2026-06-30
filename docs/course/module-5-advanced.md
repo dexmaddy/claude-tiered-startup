@@ -88,7 +88,7 @@ After every Write or Edit, run automated actions:
 If you used `setup.py` with Level 4, this is already installed. Otherwise:
 
 ```bash
-cp path/to/agentic-ai-tiered-startup/hooks/on_edit.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/on_edit.py .agent/hooks/
 ```
 
 Add to `.agent/settings.json`:
@@ -132,7 +132,7 @@ exit is blocked until re-verification runs.
 ### Setup
 
 ```bash
-cp path/to/agentic-ai-tiered-startup/hooks/on_stop.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/on_stop.py .agent/hooks/
 ```
 
 Add to config:

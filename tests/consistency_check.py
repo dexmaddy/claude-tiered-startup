@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Structural consistency checker for the tiered-startup repo.
+"""Structural consistency checker for the ai-agent-harness repo.
 
 Verifies that code, docs, config, course, wizard, and nav are all in sync.
 Run after any change to catch forgotten cross-references.

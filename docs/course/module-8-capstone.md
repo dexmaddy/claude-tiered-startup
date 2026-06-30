@@ -1,7 +1,7 @@
 # Module 8: Capstone — Wire It All Together
 
 **Time:** 30 minutes
-**Goal:** Build a complete, working tiered startup system for YOUR project
+**Goal:** Build a complete, working AI Agent Harness for YOUR project
 using everything from Modules 1-7.
 
 ---
@@ -102,7 +102,7 @@ stop:
 **Option A — Use the setup wizard (recommended):**
 
 ```bash
-python3 path/to/agentic-ai-tiered-startup/setup.py
+python3 path/to/ai-agent-harness/setup.py
 ```
 
 The wizard handles everything: detects your agent platform, asks your
@@ -119,7 +119,7 @@ python3 setup.py --non-interactive --platform claude --store sqlite --level 4
 
 ```bash
 mkdir -p .agent/hooks
-cp path/to/agentic-ai-tiered-startup/hooks/*.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/*.py .agent/hooks/
 pip install pyyaml
 ```
 
@@ -129,7 +129,7 @@ file and update your agent instructions:
 ```markdown
 ## Startup
 
-This project uses the Agentic AI Tiered Startup Architecture.
+This project uses the AI Agent Harness.
 At session start, the SessionStart hook generates a manifest and tier1 files.
 Read the manifest from hook output, then read ALL tier1 files before doing
 any work. Gates enforce this — tools are blocked until all files are read.
@@ -142,7 +142,7 @@ Do NOT skip startup. Do NOT explain what startup does — just do it.
 **4.1 — Run the smoke test**
 
 ```bash
-python3 path/to/agentic-ai-tiered-startup/tests/smoke_test.py --verbose
+python3 path/to/ai-agent-harness/tests/smoke_test.py --verbose
 ```
 
 All checks should pass.
@@ -178,7 +178,7 @@ API version, wrong test framework, wrong file path).
 
 ```bash
 git add rules/ startup-config.yaml .agent/
-git commit -m "Add tiered startup with core rules and infrastructure checks"
+git commit -m "Add AI Agent Harness with core rules and infrastructure checks"
 ```
 
 ---

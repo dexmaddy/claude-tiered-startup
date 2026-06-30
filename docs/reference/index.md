@@ -1,7 +1,7 @@
 # Reference
 
 Patterns, frameworks, and reusable components for building and evolving
-your tiered startup system.
+your AI Agent Harness system.
 
 ---
 

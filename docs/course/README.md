@@ -1,4 +1,4 @@
-# Agentic AI Tiered Startup Architecture — Mini Course
+# AI Agent Harness — Mini Course
 
 A structured, self-paced course for building reliable AI agent sessions
 that start with the right context, enforced structurally.

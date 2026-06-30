@@ -25,8 +25,8 @@ Together, these create a two-layer defense:
 If you used `setup.py` with Level 2+, these are already installed. Otherwise:
 
 ```bash
-cp path/to/agentic-ai-tiered-startup/hooks/gate_check.py .agent/hooks/
-cp path/to/agentic-ai-tiered-startup/hooks/on_prompt_submit.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/gate_check.py .agent/hooks/
+cp path/to/ai-agent-harness/hooks/on_prompt_submit.py .agent/hooks/
 ```
 
 ## Step 2: Enable Gates in Config (2 minutes)
@@ -275,7 +275,7 @@ dangerous mismatch:
 - **Agent context** is empty (all loaded rules, facts, and learnings are gone)
 - **Tool Gate** allows everything (sentinel says "complete")
 - **Result:** Agent operates without any loaded rules — exactly the state
-  the tiered startup architecture exists to prevent
+  the AI Agent Harness exists to prevent
 
 ### How It Works
 

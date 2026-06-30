@@ -79,6 +79,7 @@ nav:
     - Reference: reference/index.md
   - Overview:
     - overview/index.md
+    - What It Does For You: overview/capabilities.md
     - The Problem: overview/the-problem.md
     - Architecture: overview/architecture.md
     - Implementation Levels: overview/levels.md

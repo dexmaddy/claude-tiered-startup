@@ -87,6 +87,14 @@ stop:
     #   validator: "contains:no errors"
     #   fail_message: "Linter has errors"
 
+# --- Rule Zero (Level 4) ---
+# After every Write/Edit, scan the edited file for keyword overlap with
+# consolidated files. Warns if content appears scattered.
+rule_zero:
+  consolidated_files:
+    "MEMORY.md": ["memory", "pointer", "reference", "project state"]
+    "*.md": ["feedback", "project", "reference", "architecture"]
+
 # --- Cross-Check (Level 3) ---
 # Compare expected state against live commands after Tier 1 loads.
 # Auto-heal safe items, log remaining drift. Runs once per session.

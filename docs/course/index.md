@@ -23,7 +23,7 @@ Each module builds on the previous one.
 
     ---
 
-    The 5-hook engine, manifest/sentinel state management, and 6 key
+    The 5-hook engine, manifest/sentinel state management, and 7 key
     design decisions. Build the mental model before writing code.
 
     **Time:** 15 minutes

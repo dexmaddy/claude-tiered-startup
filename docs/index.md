@@ -10,33 +10,47 @@ that block, not suggestions that nag.
 
 <div class="grid cards" markdown>
 
--   :material-shield-check:{ .lg .middle } **Reliable sessions, start to finish**
+-   :material-shield-check:{ .lg .middle } **Enforced rule loading**
 
     ---
 
-    Structural gates enforce rule loading at startup, route scattered
-    information during work, and verify completion at shutdown.
+    Structural gates block all tools until critical context is loaded —
+    verified by file-read tracking, not trust. No more skipped rules.
 
 -   :material-lightning-bolt:{ .lg .middle } **50%+ token savings**
 
     ---
 
-    Tiered loading — essential rules always, specialized rules on-demand
-    when trigger keywords appear.
+    Tier 1 loads essential rules every session. Tier 2 loads specialized
+    rules on-demand when trigger keywords appear. No wasted tokens.
 
 -   :material-sync:{ .lg .middle } **Self-healing drift detection**
 
     ---
 
     Expected vs actual state compared every session. Safe drift auto-healed,
-    persistent drift generates fix suggestions.
+    persistent drift generates fix suggestions the agent can act on.
 
--   :material-check-decagram:{ .lg .middle } **Verified completion, not narrated**
+-   :material-routes:{ .lg .middle } **Zero information loss**
+
+    ---
+
+    Rule Zero routes scattered learnings to consolidated files at edit time.
+    Session continuity persists backlog and handoff across sessions.
+
+-   :material-check-decagram:{ .lg .middle } **Verified completion**
 
     ---
 
     Stop hook blocks exit until repos are clean, fixes are re-checked,
-    and session state is saved. "Done" means verified.
+    and session state is saved. "Done" means verified, not narrated.
+
+-   :material-brain:{ .lg .middle } **14 anti-hallucination rules**
+
+    ---
+
+    Research-backed cognitive rules in 5 phases for source-faithful
+    LLM outputs. Retract if no supporting quote — never fabricate.
 
 </div>
 

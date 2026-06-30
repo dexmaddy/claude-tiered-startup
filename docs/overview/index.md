@@ -5,6 +5,19 @@ design decisions behind it.
 
 ---
 
+## Start Here
+
+<div class="grid cards" markdown>
+
+-   :material-checkbox-multiple-marked:{ .lg .middle } **[What It Does For You](capabilities.md)**
+
+    ---
+
+    The complete capability map — 20 capabilities across startup, work,
+    and shutdown. See what each one prevents and which level enables it.
+
+</div>
+
 ## Concepts
 
 <div class="grid cards" markdown>

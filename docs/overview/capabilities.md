@@ -7,63 +7,62 @@ A complete map of capabilities — what fires, when, and what it prevents.
 ## The Full Picture
 
 ```mermaid
-mindmap
-  root((Tiered Startup<br/>Architecture))
-    Session Start
-      Infrastructure Checks
-        DB health, git status, venv
-        Custom commands with validators
-      Tiered Loading
-        Tier 1: core rules every session
-        Tier 2: on-demand via keywords
-        Token-efficient: load only what's needed
-      Manifest + Sentinel
-        Tracks what was read vs told to read
-        Session-scoped temp files
-    During Work
-      Gate Enforcement
-        Blocks tools until rules are loaded
-        PreToolUse deny, not suggestions
-        Git commit/push always allowed
-      Rule Zero
-        Every edit triggers: is this scattered?
-        Keyword overlap detection
-        Routes info to consolidated files
-      Drift Detection
-        Expected vs actual state comparison
-        Auto-heals safe items
-        Write-back suggestions for the rest
-        Bounded: 2 passes max
-      Context Health
-        Warns at prompt count thresholds
-        Suggests subagents and /clear
-    Session End
-      Self-Verification
-        Blocks exit if fixes not re-checked
-        4-point: did it, everywhere, related, repeatable
-      Clean Shutdown
-        Repos committed and pushed
-        Transcript saved
-        Custom shutdown steps
-      Session Continuity
-        Persistent backlog across sessions
-        What was done, what's next
-    Cross-Cutting
-      Anti-Hallucination
-        14 meta + 45 domain rules
-        5-phase execution protocol
-        More reasoning = worse faithfulness
-      Feedback Loop
-        Failure to learning to rule to check to hook
-        Bidirectional: rules feed checks, checks feed rules
-      Sensitive Data Prevention
-        Pre-commit hook blocks matches
-        Consistency checker scans all files
-        Patterns loaded from gitignored file
-      No-Truncation Enforcement
-        Verifies DB stores match source length
-        Blocks exit if unverified
+graph TB
+    subgraph START ["<b>Session Start</b>"]
+        direction TB
+        S1["Infrastructure Checks<br/><small>DB, git, venv, custom commands</small>"]
+        S2["Tiered Loading<br/><small>Tier 1 always, Tier 2 on-demand</small>"]
+        S3["State Tracking<br/><small>Manifest + sentinel per session</small>"]
+    end
+
+    subgraph GATE ["<b>Startup Gate</b>"]
+        direction TB
+        G1["Tool Blocking<br/><small>Non-Read tools denied until<br/>rules are in context</small>"]
+        G2["Context Reset Detection<br/><small>Detects /clear, re-triggers startup</small>"]
+        G3["Prompt Health Warnings<br/><small>Warns at configurable thresholds</small>"]
+    end
+
+    subgraph WORK ["<b>During Work</b>"]
+        direction TB
+        W1["Rule Zero<br/><small>Every edit scanned for<br/>scattered information</small>"]
+        W2["Drift Detection<br/><small>Expected vs actual, auto-heal,<br/>bounded 2 passes</small>"]
+        W3["Tier 2 Triggers<br/><small>Keywords in tool calls load<br/>task-specific rules</small>"]
+    end
+
+    subgraph STOP ["<b>Session End</b>"]
+        direction TB
+        E1["Self-Verification<br/><small>Blocks exit if fixes<br/>not re-checked</small>"]
+        E2["Clean Shutdown<br/><small>Repos, transcript, audit<br/>must pass</small>"]
+        E3["Session Continuity<br/><small>Backlog + handoff persist<br/>across sessions</small>"]
+    end
+
+    START --> GATE --> WORK --> STOP
+
+    style START fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style GATE fill:#fff3e0,stroke:#ef6c00,color:#e65100
+    style WORK fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style STOP fill:#fce4ec,stroke:#c62828,color:#b71c1c
+
+    style S1 fill:#fff,stroke:#4caf50
+    style S2 fill:#fff,stroke:#4caf50
+    style S3 fill:#fff,stroke:#4caf50
+    style G1 fill:#fff,stroke:#ff9800
+    style G2 fill:#fff,stroke:#ff9800
+    style G3 fill:#fff,stroke:#ff9800
+    style W1 fill:#fff,stroke:#2196f3
+    style W2 fill:#fff,stroke:#2196f3
+    style W3 fill:#fff,stroke:#2196f3
+    style E1 fill:#fff,stroke:#f44336
+    style E2 fill:#fff,stroke:#f44336
+    style E3 fill:#fff,stroke:#f44336
 ```
+
+!!! note "Cross-cutting capabilities"
+    Three capabilities apply across all phases and aren't shown above:
+
+    - **Anti-Hallucination Rules** — 59 rules in 5 phases for source-faithful LLM outputs
+    - **Feedback Loop** — failures become rules, rules become checks, checks become hooks
+    - **Sensitive Data Prevention** — pre-commit hook + consistency checker block personal data
 
 ---
 

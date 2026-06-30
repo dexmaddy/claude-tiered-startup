@@ -12,6 +12,89 @@ PostToolUse actions, and the stop hook.
 
 ---
 
+## Part A: Tier 2 On-Demand Loading
+
+### The Concept
+
+Tier 1 files load at startup — every session, unconditionally. Tier 2
+files load **on demand** when the agent's tool calls contain specific
+keywords. This keeps startup fast while ensuring specialized rules
+(e.g., API protocols, case extraction steps) are available when needed.
+
+The gate scans tool input for trigger keywords. When a match is found,
+the gate blocks the tool call and tells the agent to read the tier 2
+file first. Once read, the keyword is satisfied for the rest of the session.
+
+### Step 1: Create Tier 2 Rule Files
+
+Add your tier 2 content as separate files and register them in
+`startup-config.yaml` with a `triggers` array:
+
+```yaml
+tier2:
+  - name: api-rules
+    path: rules/api-rules.md
+    triggers: ["api", "endpoint", "REST"]
+
+  - name: case-extraction
+    path: rules/case-extraction.md
+    triggers: ["case", "extraction", "support-ticket"]
+
+  - name: research-protocol
+    path: rules/research-protocol.md
+    triggers: ["research", "synthesis", "report"]
+```
+
+Each entry needs a unique `name`, a `path` to the rule file, and a
+`triggers` array of keywords that activate it.
+
+### Step 2: Enable in Gates Config
+
+Update the `gates` section of `startup-config.yaml`:
+
+```yaml
+gates:
+  block_until_tier1: true
+  tier2_keyword_scan: true           # ← Enable tier 2 scanning
+  keyword_scan_fields:               # Which tool input fields to scan
+    - file_path
+    - command
+    - description
+  keyword_scan_max_chars: 120        # Scan only first N chars (performance)
+```
+
+- `keyword_scan_fields` — limits scanning to specific input fields
+  instead of the entire tool payload
+- `keyword_scan_max_chars` — caps how much of each field is scanned,
+  preventing slowdowns on large inputs
+
+### Step 3: Test It
+
+1. Start a new session and let tier 1 complete normally
+2. Run a command containing a trigger keyword:
+   ```
+   Agent tries: Bash("curl https://example.com/api/v1/users")
+   ```
+3. The gate blocks with:
+   ```
+   DENIED: Tier 2 file "api-rules" required (matched keyword: "api").
+   Read rules/api-rules.md before proceeding.
+   ```
+4. Agent reads the file → gate unblocks → original tool call succeeds
+
+### Step 4: Trigger Design Tips
+
+- **Be specific.** Prefer `"extraction"` over `"extract"` — short words
+  cause false positives on unrelated commands.
+- **Test against common commands.** Run `git status`, `ls`, `cat` — if
+  any trigger fires, the keyword is too broad.
+- **Use 2-3 triggers per file.** More triggers increase match odds but
+  also increase false-positive risk.
+- **Lowercase matching.** The scanner lowercases both input and triggers,
+  so `"API"` and `"api"` are equivalent — list only one.
+
+---
+
 ## Part B: Cross-Check Drift Detection
 
 ### The Concept

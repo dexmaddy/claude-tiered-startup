@@ -433,7 +433,7 @@ sample rules, and wires everything together for your chosen platform.
 
 ### Learn the Concepts
 
-**Take the [Mini Course](docs/course/README.md)** — 8 modules, ~2.5 hours,
+**Take the [Course](docs/course/README.md)** — 8 modules, ~2.5 hours,
 builds a complete working system for your project step by step.
 
 **Reference docs:**
@@ -470,7 +470,7 @@ ai-agent-harness/
 │   └── audit-checks.yaml                 # 10 generic checks
 ├── docs/                                 # Website content
 │   ├── index.md                          # Home page
-│   ├── course/                           # 8-module mini course
+│   ├── course/                           # 8-module course
 │   │   ├── README.md                     # Course overview
 │   │   └── module-1 through module-8     # Course modules
 │   ├── reference/                        # Guides, templates, patterns

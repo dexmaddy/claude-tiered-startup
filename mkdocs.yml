@@ -75,7 +75,7 @@ nav:
     - index.md
     - Overview: overview/index.md
     - Getting Started: reference/setup-wizard.md
-    - Mini Course: course/index.md
+    - Course: course/index.md
     - Reference: reference/index.md
   - Overview:
     - overview/index.md

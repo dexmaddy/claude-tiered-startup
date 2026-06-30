@@ -1,7 +1,8 @@
-# Mini Course
+# Course
 
-A structured, self-paced course for building reliable AI agent sessions.
-8 modules, ~2.5 hours total. Each module builds on the previous one.
+A structured, self-paced course for building reliable AI agent sessions —
+from startup through work to shutdown. 8 modules, ~2.5 hours total.
+Each module builds on the previous one.
 
 ---
 

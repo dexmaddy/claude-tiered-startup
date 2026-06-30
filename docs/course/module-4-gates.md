@@ -10,8 +10,9 @@ all tier1 files are read. Add prompt-level gate as a second layer.
     see the [Data Store Mapping Guide](../reference/data-store-mapping.md) for
     equivalent database commands.
 
-------|------|-------------|
-| Tool Gate | PreToolUse | Blocks Bash, Write, Edit, Agent — only allows Read |
+| Gate | Hook | Behavior |
+|------|------|----------|
+| Tool Gate | PreToolUse | Blocks all non-Read tools — only allows Read |
 | Prompt Gate | UserPromptSubmit | Injects "read files first" into the agent's context |
 
 Together, these create a two-layer defense:

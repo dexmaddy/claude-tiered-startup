@@ -60,7 +60,7 @@ that block, not suggestions that nag.
     Run `python3 setup.py` — the interactive wizard configures
     everything in under 2 minutes. Or follow the bootstrapping guide.
 
--   :material-school:{ .lg .middle } **[Mini Course](course/index.md)**
+-   :material-school:{ .lg .middle } **[Course](course/index.md)**
 
     ---
 

@@ -1,7 +1,7 @@
-# AI Agent Harness — Mini Course
+# AI Agent Harness — Course
 
-A structured, self-paced course for building reliable AI agent sessions
-that start with the right context, enforced structurally.
+A structured, self-paced course for building reliable AI agent sessions —
+from startup through work to shutdown, enforced structurally.
 
 ## Who This Is For
 

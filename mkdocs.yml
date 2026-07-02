@@ -114,4 +114,5 @@ nav:
       - Audit Runner: reference/audit-runner.md
       - Session Continuity: reference/session-continuity.md
     - Guides:
+      - Hook Output Formats: reference/hook-output-formats.md
       - Data Store Mapping: reference/data-store-mapping.md

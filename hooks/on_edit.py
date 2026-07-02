@@ -165,6 +165,7 @@ def main() -> None:
 
     if messages:
         print(json.dumps({"hookSpecificOutput": {
+            "hookEventName": "PostToolUse",
             "additionalContext": "\n".join(messages)
         }}))
 

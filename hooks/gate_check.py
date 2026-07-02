@@ -178,6 +178,7 @@ def main() -> None:
             write_json(SENTINEL, sentinel)
             if stale:
                 print(json.dumps({"hookSpecificOutput": {
+                    "hookEventName": "PreToolUse",
                     "additionalContext": f"STALE FACTS ({len(stale)}): " + "; ".join(stale[:5])
                 }}))
         except Exception:

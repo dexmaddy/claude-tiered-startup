@@ -149,7 +149,7 @@ def main() -> None:
             "Check the SessionStart hook output for the manifest path, "
             "then read every Tier 1 file listed in it."
         )
-        output = {"hookSpecificOutput": {"additionalContext": gate_msg}}
+        output = {"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": gate_msg}}
         print(json.dumps(output))
         sys.exit(0)
 
@@ -172,7 +172,7 @@ def main() -> None:
             f"Read these files BEFORE responding to the user:\n{file_list}\n"
             "Do NOT skip startup. Do NOT explain what startup does — just do it."
         )
-        output = {"hookSpecificOutput": {"additionalContext": gate_msg}}
+        output = {"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": gate_msg}}
         print(json.dumps(output))
         sys.exit(0)
 
@@ -208,7 +208,7 @@ def main() -> None:
 
     if messages:
         combined = "\n".join(messages)
-        output = {"hookSpecificOutput": {"additionalContext": combined}}
+        output = {"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": combined}}
         print(json.dumps(output))
 
     sys.exit(0)
